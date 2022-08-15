@@ -23,7 +23,7 @@
           customer.password = password.val();
           console.log(customer);
           $.ajax({
-              url:'http://localhost:8022/api/auth/signup',
+              url:'https://app-125se-backend.herokuapp.com/api/auth/signup',
               type: 'POST',
               dataType: 'json',
               data: JSON.stringify(customer),
