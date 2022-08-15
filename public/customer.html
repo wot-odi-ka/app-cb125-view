@@ -19,7 +19,6 @@
                 var gender  = $('#gender');
                 var alamat = $('#alamat'); 
                 var id_Databaju = $('#id_dataBaju'); 
-       
                 var product = {};
                product.nama = nama.val();
                product.jumlahBaju = jumlahBaju.val();
@@ -27,6 +26,31 @@
                product.gender = gender.val();
                product.alamat = alamat.val();
                product.id_Databaju = id_Databaju.val();
+        if(nama==''){
+            alert('nama tidak boleh kosong');
+            return false;
+        }
+        if(jumlahBaju==''){
+            alert('jumlahBaju tidak boleh kosong');
+            return false;
+        }
+        if(noHp==''){
+            alert('noHp tidak boleh kosong');
+            return false;
+        }
+        if(gender==''){
+            alert('gender tidak boleh kosong');
+            return false;
+        }
+        if(alamat==''){
+            alert('alamat tidak boleh kosong');
+            return false;
+        }
+        if(id_Databaju==''){
+            alert('id_Databaju tidak boleh kosong');
+            return false;
+        }
+               
                 console.log(product);
                 $.ajax({
                     url:'https://app-125se-backend.herokuapp.com/customer/add',
@@ -107,47 +131,61 @@
                             <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
                             <li class="breadcrumb-item active">Customer</li>
                         </ol>
+                        <div class="col-md-6 grid-margin stretch-card">
+                        </div>
+                        <div class="col-md-6 grid-margin stretch-card">
+                        </div>
+                        <div class="col-md-6 grid-margin stretch-card">
+                        </div>
+                        <div class="col-12 grid-margin stretch-card">
                         <div class="card mb-4">
                             <div class="card-body">
                                 <form class="forms-sample">
-                                    <div class="form-group">
+                                    <div class="form-group">    
                                       <label for="exampleInputName1">Name</label>
-                                      <input type="text" class="form-control" id="nama">
+                                      <input type="text" class="form-control" id="nama" required>
                                     </div>
                                     <div class="form-group">
                                       <label for="exampleInputEmail3">No handphone</label>
-                                      <input type="text" class="form-control" id="noHp" >
+                                      <input type="text" class="form-control" id="noHp" required>
                                     </div>
                                     <div class="form-group">
                                       <label for="exampleInputPassword4">Jumlah Baju</label>
-                                      <input type="text" class="form-control" id="jumlahBaju" >
+                                      <input type="text" class="form-control" id="jumlahBaju" required>
                                     </div> 
                        
                                       <div class="form-group">
                                         <label for="exampleInputPassword4">Id Data baju</label>
-                                        <input type="number" class="form-control" id="id_dataBaju">
+                                        <select class="form-control" id="id_dataBaju" required>
+                                            <option></option>
+                                            <option value="1">S-Hitam-pendek</option>
+                                            <option value="2">M-Putih-Panjang</option>
+                                          </select>
                                       </div>
                                     <div class="form-group">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleSelectGender">Gender</label>
-                                        <select class="form-control" id="gender">
+                                        <select class="form-control" id="gender" required>
+                                            <option></option>
                                           <option>Perempuan</option>
                                           <option>Laki - Laki</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                       <label for="exampleTextarea1">Alamat</label>
-                                      <textarea class="form-control" id="alamat" rows="4"></textarea>
+                                      <textarea class="form-control" id="alamat" rows="4" required></textarea>
                                     </div>
+                                    <h4></h4>
                                     <div class="form-group">
-                                        <button type="button" class="btn btn-primary" onclick="saveData()">Submit</button>
+                                        <button type="submit" class="btn btn-primary" onclick="saveData()">Submit</button>
                                     <button type="button" class="btn btn-secondary">Cancel</button>
                                     </div>
                                     
                                   </form>
                             </div>
                         </div>
+                    </div>
                         <div style="height: 100vh"></div>
                         <div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>
                     </div>

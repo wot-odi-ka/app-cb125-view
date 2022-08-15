@@ -107,20 +107,28 @@
                             <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
                             <li class="breadcrumb-item active">Product</li>
                         </ol>
+                        <div class="col-md-6 grid-margin stretch-card">
+                        </div>
+                        <div class="col-md-6 grid-margin stretch-card">
+                        </div>
+                        <div class="col-md-6 grid-margin stretch-card">
+                        </div>
+                        <div class="col-12 grid-margin stretch-card">
                         <div class="card mb-4">
                             <div class="card-body">
                                 <form class="forms-sample">
                                     <div class="form-group">
                                       <label for="exampleInputName1">Id</label>
-                                      <input type="text" class="form-control" id="id">
+                                      <input type="number" class="form-control" id="id">
                                     </div>
                                     <div class="form-group">
                                       <label for="exampleInputEmail3">Nama Baju</label>
-                                      <input type="text" class="form-control" id="namaBaju" >
+                                      <input type="text" class="form-control" id="namaBaju" required >
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleSelectGender">Ukuran Baju</label>
-                                        <select class="form-control" id="ukuranBaju">
+                                        <select class="form-control" id="ukuranBaju" required>
+                                            <option></option>
                                           <option>S</option>
                                           <option>M</option>
                                           <option>L</option>
@@ -131,13 +139,14 @@
                        
                                       <div class="form-group">
                                         <label for="exampleInputPassword4">Harga Baju</label>
-                                        <input type="number" class="form-control" id="hargaBaju">
+                                        <input type="number" class="form-control" id="hargaBaju" required>
                                       </div>
                                     <div class="form-group">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleSelectGender">Warna Baju</label>
-                                        <select class="form-control" id="warnaBaju">
+                                        <select class="form-control" id="warnaBaju" required>
+                                          <option></option>
                                           <option>Hitam</option>
                                           <option>Putih</option>
                                           <option>Hijau</option>
@@ -145,35 +154,24 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleSelectGender">Jenis Baju</label>
-                                        <select class="form-control" id="jenisBaju">
+                                        <select class="form-control" id="jenisBaju" required>
+                                            <option></option>
                                           <option>Panjang</option>
                                           <option>Pendek</option>
                                         </select>
                                     </div>
+                                    <h3></h3>
                                     <div class="form-group">
-                                        <button type="button" class="btn btn-primary" onclick="saveData()">Submit</button>
+                                        <button type="submit" class="btn btn-primary" onclick="saveData()">Submit</button>
                                     <button type="button" class="btn btn-secondary">Cancel</button>
                                     </div>
                                     
                                   </form>
                             </div>
                         </div>
-                        <div style="height: 100vh"></div>
-                        <div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>
-                    </div>
-                </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
                         </div>
-                    </div>
-                </footer>
+                </main>
+                
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
