@@ -1,5 +1,5 @@
 {
-    "root":"public",
+    "root":"public/login.html",
     "clean_urls":true,
     "https_only":true,
     "error_page":"401.html",
