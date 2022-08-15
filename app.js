@@ -4,7 +4,7 @@ const app = express();
 const port = config.get('server.port');
 const host = config.get('server.host');
 
-app.get('/', (req, res) => {
+app.get('/login.html', (req, res) => {
     res.send('Hello World');
 });
 const server = app.listen(port, host, (err) => {
