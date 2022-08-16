@@ -21,6 +21,18 @@
           customer.username = username.val();
           customer.email = email.val();
           customer.password = password.val();
+          if(customer.username == ''){
+            alert("username tidak boleh kosong")
+            return false;
+          }
+          if(customer.email==''){
+            alert("email tidak boleh kosong")
+            return false;
+          }
+          if(customer.password==''){
+            alert("password tidak boleh kosong")
+            return false;
+          }
           console.log(customer);
           $.ajax({
               url:'https://app-125se-backend.herokuapp.com/api/auth/signup',

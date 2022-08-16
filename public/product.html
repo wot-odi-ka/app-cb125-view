@@ -27,6 +27,31 @@
                product.hargaBaju = hargaBaju.val();
                product.warnaBaju = warnaBaju.val();
                product.jenisBaju = jenisBaju.val();
+
+        if(product.id==''){
+            alert('ID tidak boleh kosong');
+            return false;
+        }
+        if(product.namaBaju==''){
+            alert('Nama Baju tidak boleh kosong');
+            return false;
+        }
+        if(product.ukuranBaju==''){
+            alert('Ukuran Baju tidak boleh kosong');
+            return false;
+        }
+        if(product.hargaBaju==''){
+            alert('Harga Baju tidak boleh kosong');
+            return false;
+        }
+        if(product.warnaBaju==''){
+            alert('Warna Baju tidak boleh kosong');
+            return false;
+        }
+        if(product.jenisBaju==''){
+            alert('Jenis Baju tidak boleh kosong');
+            return false;
+        }
                 console.log(product);
                 $.ajax({
                     url:'https://app-125se-backend.herokuapp.com/baju/add',

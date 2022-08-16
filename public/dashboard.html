@@ -38,6 +38,24 @@
               $('#lovModal').modal('show');
             });
           });
+
+          function logout(){
+            $.ajax({
+                url:'https://app-125se-backend.herokuapp.com/api/auth/logout',
+                type:'POST',
+                dataType: 'json',
+                headers: {
+                              "content-type": "application/json",
+                              Authorization: "Bearer " + localStorage.getItem("bearer")
+                        },
+                        success:function(data){
+                        console.log(data);
+                        alert("product created successfully", "success");
+                        window.location.href="../../index.html";
+                   
+                    },
+            })
+          };
       
           </script>
     </head>

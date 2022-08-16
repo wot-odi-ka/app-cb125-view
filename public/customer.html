@@ -19,6 +19,7 @@
                 var gender  = $('#gender');
                 var alamat = $('#alamat'); 
                 var id_Databaju = $('#id_dataBaju'); 
+                console.log(nama);
                 var product = {};
                product.nama = nama.val();
                product.jumlahBaju = jumlahBaju.val();
@@ -26,27 +27,27 @@
                product.gender = gender.val();
                product.alamat = alamat.val();
                product.id_Databaju = id_Databaju.val();
-        if(nama==''){
+        if(product.nama==''){
             alert('nama tidak boleh kosong');
             return false;
         }
-        if(jumlahBaju==''){
+        if(product.jumlahBaju==''){
             alert('jumlahBaju tidak boleh kosong');
             return false;
         }
-        if(noHp==''){
+        if(product.noHp==''){
             alert('noHp tidak boleh kosong');
             return false;
         }
-        if(gender==''){
+        if(product.gender==''){
             alert('gender tidak boleh kosong');
             return false;
         }
-        if(alamat==''){
+        if(product.alamat==''){
             alert('alamat tidak boleh kosong');
             return false;
         }
-        if(id_Databaju==''){
+        if(product.id_Databaju==''){
             alert('id_Databaju tidak boleh kosong');
             return false;
         }

@@ -19,6 +19,14 @@
           var user = {};
           user.username = username.val();
           user.password = password.val();
+          if(user.username ==''){
+            alert('nama tidak boleh kosong');
+            return false;
+        }
+        if(user.password ==''){
+            alert('jumlahBaju tidak boleh kosong');
+            return false;
+        }
           console.log(user);
           $.ajax({
               url:'https://app-125se-backend.herokuapp.com/api/auth/signin',
@@ -55,11 +63,11 @@
                                     <div class="card-body">
                                         <form>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="userName" type="text" placeholder="name@example.com" />
+                                                <input class="form-control" id="userName" type="text" placeholder="name@example.com" required/>
                                                 <label for="inputEmail">Username</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="password" type="password" placeholder="Password" />
+                                                <input class="form-control" id="password" type="password" placeholder="Password" required />
                                                 <label for="inputPassword">Password</label>
                                             </div>
                                             <div class="form-check mb-3">
@@ -84,7 +92,6 @@
             <div id="layoutAuthentication_footer">
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
-                      
                     </div>
                 </footer>
             </div>
