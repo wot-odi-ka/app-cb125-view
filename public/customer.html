@@ -31,12 +31,17 @@
             alert('nama tidak boleh kosong');
             return false;
         }
+        
+        if(product.noHp==''){
+            alert('noHp tidak boleh kosong');
+            return false;
+        }
         if(product.jumlahBaju==''){
             alert('jumlahBaju tidak boleh kosong');
             return false;
         }
-        if(product.noHp==''){
-            alert('noHp tidak boleh kosong');
+        if(product.id_Databaju==''){
+            alert('id_Databaju tidak boleh kosong');
             return false;
         }
         if(product.gender==''){
@@ -47,10 +52,7 @@
             alert('alamat tidak boleh kosong');
             return false;
         }
-        if(product.id_Databaju==''){
-            alert('id_Databaju tidak boleh kosong');
-            return false;
-        }
+       
                
                 console.log(product);
                 $.ajax({
