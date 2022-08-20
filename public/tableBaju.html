@@ -7,6 +7,8 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Tables Data Baju - SB Admin</title>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -23,21 +25,62 @@
                               "content-type": "application/json",
                               Authorization: "Bearer " + localStorage.getItem("bearer")
                             },
-                      success:function(data){
+                      success:function(result){
                          // console.log(data.dataBaju);
-      
-                          $.each(data, function(i,data1){
-                              console.log(data1.dataBaju);
-                              $('#tableBaju').append('<tr>'+ '<td>'+ data1.id +'</td>'+'<td>'+ data1.namaBaju +'</td>' +'<td>'+  data1.ukuranBaju+'</td>' +'<td>'+data1.hargaBaju  +'</td>'+ '<td>'+data1.warnaBaju  +'</td>'+ '<td>'+data1.jenisBaju  +'</td>'+'</tr>')
-                          })
+                         var data='';
+                          $.each(result, function(i,data1){
+                            data+='<tr>';
+                                data+='<td>'+data1.id+'</td>';
+                                data+='<td>'+data1.namaBaju+'</td>';
+                                data+='<td>'+data1.ukuranBaju+'</td>';
+                                data+='<td>'+data1.hargaBaju+'</td>';
+                                data+='<td>'+data1.warnaBaju+'</td>';
+                                data+='<td>'+data1.jenisBaju+'</td>';
+                                // data+='<td>'+item.alamat+'</td>';
+                                data+='<td><button class="btn btn-outline-info " data="'+data1.id+'" data-toggle="modal" data-target="#Modaledit">edit</button> <h2></h2> <button class="btn btn-outline-danger btn-sm btn-hapus" data="'+data1.id+'">hapus</button></td>';
+                                data+='</tr>';
+                          });
+                          $('#tableBaju').html(data);
                       }
                   })
               };
-              $(document).ready(function(){
-            $("no_ktpSearch").click(function(){
-              $('#lovModal').modal('show');
-            });
-          });
+
+              $(document).on('click', '.btn-hapus', function(){
+                let id=$(this).attr('data');
+                swal({   
+          title: "Apakah Kamu Yakin?",   
+          text: "Ingin menghapus data dengan id " +id ,   
+          type: "warning",   
+          showCancelButton: !0,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Yes, delete it!",   
+          cancelButtonText: "No",
+          closeOnConfirm: false 
+      }).then(isConfirmed => { 
+        if(isConfirmed) {
+            $.ajax({
+                url: 'https://app-125se-backend.herokuapp.com/baju/'+id,
+                    type: 'DELETE',
+                      dataType: 'json',
+                      headers: {
+                              "content-type": "application/json",
+                              Authorization: "Bearer " + localStorage.getItem("bearer")
+                            },
+                    data:'id='+id,
+                    
+                    success: function(result) {
+                     var oTable = $('#datatablesSimple').DataTable();
+                    swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                    $(oTable).detach();
+                     getDataProduct();
+                }
+             });
+          
+            }
+        });
+             
+    });
+
       
           </script>
     </head>
@@ -125,9 +168,10 @@
                                             <th>Harga Baju</th>
                                             <th>Warna Baju</th>
                                             <th>Jenis Baju</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <!-- <tfoot>
                                         <tr>
                                             <th>Id</th>
                                             <th>Nama Baju</th>
@@ -137,6 +181,9 @@
                                             <th>Jenis Baju</th>
                                         </tr>
                                     </tfoot>
+                                    <tbody class="table" id="tableBaju">
+                                      
+                                    </tbody> -->
                                     <tbody class="table" id="tableBaju">
                                       
                                     </tbody>

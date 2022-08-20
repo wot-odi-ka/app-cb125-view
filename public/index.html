@@ -37,14 +37,15 @@
               success:function(data){
                 localStorage.setItem('bearer',data.accessToken)
                 localStorage.setItem('refreshToken',data.refreshToken)
+                localStorage.setItem('UserId',data.id)
                   console.log(localStorage);
-                  alert("Item created successfully", "success");
+                  alert("Login successfully click OK", "success");
                   window.location.href="../../dashboard.html";
                   username.val("");
                   password.val("");
               },
               error:function(er){
-                console.log(JSON.stringify(error));
+                alert("Username atau Password salah!", "Error");
               }
           }) 
       };
