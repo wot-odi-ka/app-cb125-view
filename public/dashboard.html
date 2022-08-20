@@ -252,29 +252,29 @@ table.table .avatar {
 }	
 </style>
 <script>
-$(document).ready(function(){
-	// Activate tooltip
-	$('[data-toggle="tooltip"]').tooltip();
+// $(document).ready(function(){
+// 	// Activate tooltip
+// 	$('[data-toggle="tooltip"]').tooltip();
 	
-	// Select/Deselect checkboxes
-	var checkbox = $('table tbody input[type="checkbox"]');
-	$("#selectAll").click(function(){
-		if(this.checked){
-			checkbox.each(function(){
-				this.checked = true;                        
-			});
-		} else{
-			checkbox.each(function(){
-				this.checked = false;                        
-			});
-		} 
-	});
-	checkbox.click(function(){
-		if(!this.checked){
-			$("#selectAll").prop("checked", false);
-		}
-	});
-});
+// 	// Select/Deselect checkboxes
+// 	var checkbox = $('table tbody input[type="checkbox"]');
+// 	$("#selectAll").click(function(){
+// 		if(this.checked){
+// 			checkbox.each(function(){
+// 				this.checked = true;                        
+// 			});
+// 		} else{
+// 			checkbox.each(function(){
+// 				this.checked = false;                        
+// 			});
+// 		} 
+// 	});
+// 	checkbox.click(function(){
+// 		if(!this.checked){
+// 			$("#selectAll").prop("checked", false);
+// 		}
+// 	});
+// });
             
             getDataProduct(); 
             function getDataProduct(){
@@ -302,7 +302,7 @@ $(document).ready(function(){
                                 data+='<td>'+item.totalHarga+'</td>';
                                 data+='<td>'+item.alamat+'</td>';
                                 data+='<td><a href="#editEmployeeModal" class="edit" data="'+item.id+'" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>';
-                                data+='</a> <a href="#deleteEmployeeModal" class="delete" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>';
+                                data+='</a> <a href="#" class="delete" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>';
                                 data+='</tr>';
                        
                                
@@ -317,10 +317,45 @@ $(document).ready(function(){
                   })
               };
 
-              $(document).on('click','.delete',function(){
-                let id=$(this).attr('data');
-                $(document).on('click','.btnDelete',function() {
-                console.log(id);
+//               $(document).on('click','.delete',function(){
+//                 let id=$(this).attr('data');
+//                 $(document).on('click','.btnDelete',function() {
+//                 console.log(id);
+//             $.ajax({
+//                 url: 'https://app-125se-backend.herokuapp.com/customer/delete/'+id,
+//                     type: 'DELETE',
+//                       dataType: 'json',
+//                       headers: {
+//                               "content-type": "application/json",
+//                               Authorization: "Bearer " + localStorage.getItem("bearer")
+//                             },
+//                     data:'id='+id,
+//                     success: function(result) {
+//                     // var oTable = $('#tableBody').DataTable();
+//                     swal("Deleted!", "Your imaginary file has been deleted.", "success");
+//                     $('tableBody').detach();
+//                      getDataProduct();
+//                 }
+//              });
+          
+//     })
+
+// })
+
+
+$(document).on('click','.delete',function(){
+    let id=$(this).attr('data');
+    swal({   
+          title: "Apakah Kamu Yakin?",   
+          text: "Ingin menghapus data ini",   
+          type: "warning",   
+          showCancelButton: !0,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Yes, delete it!",   
+          cancelButtonText: "No",
+          closeOnConfirm: false 
+      }).then(isConfirmed => { 
+        if(isConfirmed) {
             $.ajax({
                 url: 'https://app-125se-backend.herokuapp.com/customer/delete/'+id,
                     type: 'DELETE',
@@ -330,18 +365,18 @@ $(document).ready(function(){
                               Authorization: "Bearer " + localStorage.getItem("bearer")
                             },
                     data:'id='+id,
+                    
                     success: function(result) {
-                    // var oTable = $('#tableBody').DataTable();
+                    // var oTable = $('#datatablesSimple').DataTable();
                     swal("Deleted!", "Your imaginary file has been deleted.", "success");
                     $('tableBody').detach();
                      getDataProduct();
                 }
              });
           
-    })
-
-})
-
+            }
+        });
+});
 
           function logout(){
             let userId = localStorage.getItem("UserId")
