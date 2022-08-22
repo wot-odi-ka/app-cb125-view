@@ -8,75 +8,109 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Customer - SB Admin</title>
-    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
-    <link href="css/styles.css" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        function saveData() {
+       <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+        <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script> -->
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> -->
+        <link href="css/styles.css" rel="stylesheet" />
+        <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+        <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script> -->
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src=" https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> -->
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <script type="text/javascript"  language="javascript">
+        $(document).on('click','.save',function(){
             var nama = $('#nama');
             var jumlahBaju = $('#jumlahBaju');
             var noHp = $('#noHp');
-            var gender = $('#gender');
+            // var gender = $('#gender');
             var alamat = $('#alamat');
-            var id_Databaju = $('#id_dataBaju');
+            var pendek = $('#pendek');
+            var panjang = $('#panjang');
             console.log(nama);
             var product = {};
             product.nama = nama.val();
             product.jumlahBaju = jumlahBaju.val();
             product.noHp = noHp.val();
-            product.gender = gender.val();
+            // product.gender = gender.val();
             product.alamat = alamat.val();
-            product.id_Databaju = id_Databaju.val();
+            if(pendek.val() == ''){
+                product.id_Databaju = panjang.val();
+            }
+            if(panjang.val() == ''){
+                product.id_Databaju = pendek.val();
+            }
+            
             if (product.nama == '') {
-                alert('nama tidak boleh kosong');
+                swal("Data!", 'Nama tidak boleh kosong', "warning",{
+                 buttons: false,
+                    timer: 2000,
+                });
                 return false;
             }
 
             if (product.noHp == '') {
-                alert('noHp tidak boleh kosong');
+                swal("Data!", 'NoHp tidak boleh kosong', "warning",{
+                buttons: false,
+                 timer: 2000,
+                });
                 return false;
             }
             if (product.jumlahBaju == '') {
-                alert('jumlahBaju tidak boleh kosong');
+                swal("Data!", 'Jumlah Baju tidak boleh kosong', "warning",{
+                buttons: false,
+                timer: 2000,
+                });
                 return false;
             }
-            if (product.id_Databaju == '') {
-                alert('id_Databaju tidak boleh kosong');
-                return false;
-            }
-            if (product.gender == '') {
-                alert('gender tidak boleh kosong');
-                return false;
-            }
-            if (product.alamat == '') {
-                alert('alamat tidak boleh kosong');
+            if (product.alamat == '') {                
+                swal("Data!", 'alamat tidak boleh kosong', "warning",{
+             buttons: false,
+             timer: 2000,
+            });
                 return false;
             }
             $.ajax({
                 url: 'https://app-125se-backend.herokuapp.com/customer/add',
                 type: 'POST',
                 dataType: 'json',
-                crossDomain: true,
                 data: JSON.stringify(product),
                 contentType: "application/json; charset=utf-8",
                 headers: {
                     "content-type": "application/json",
                     Authorization: "Bearer " + localStorage.getItem("bearer")
+                    },
+                success: function(result){
+                    swal("Insert!", 'Save Data Success', "success",{
+                    buttons: false,
+                timer: 3000,
+                });
                 },
-                success: function (data) {
-                    swal("Insert!", data, "success");
-                    window.location.href = "../../dashboard.html";
-                },
-                error: function (er) {
+                complete: function() {
+                    swal("Insert!", 'Save Data Success', "success",{
+                    buttons: false,
+                timer: 3000,
+                });
+     
+    },
+                error: function(er) {
                     alert("No insert data", "Error");
                 }
             })
-        };
+        });
     </script>
 </head>
 
@@ -170,50 +204,79 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="exampleInputPassword4">Id Data baju</label>
-                                        <select class="form-control" id="id_dataBaju" required>
+                                        <label for="exampleInputPassword4">Pendek</label>
+                                        <select class="form-control" id="pendek">
                                             <option></option>
                                             <option value="1">S-Hitam-pendek</option>
                                             <option value="2">M-Hitam-pendek</option>
                                             <option value="3">L-Hitam-Pendek</option>
                                             <option value="4">XL-Hitam-Pendek</option>
-                                            <option value="5">XXL/X5L-Hitam-Pendek</option>
+                                            <option value="5">XXL-Hitam-Pendek</option>
+                                            <option value="43">XXXL-Hitam-Pendek</option>
+                                            <option value="44">XXXXL-Hitam-Pendek</option>
+                                            <option value="45">XXXXXL-Hitam-Pendek</option>
+                                            <option>------------------------------</option>
                                             <option value="6">S-Putih-Pendek</option>
                                             <option value="7">M-Putih-Pendek</option>
                                             <option value="8">L-Putih-Pendek</option>
                                             <option value="9">XL-Putih-Pendek</option>
-                                            <option value="10">XXL/X5L-Putih-Pendek</option>
+                                            <option value="10">XXL-Putih-Pendek</option>
+                                            <option value="46">XXXL-Putih-Pendek</option>
+                                            <option value="47">XXXXL-Putih-Pendek</option>
+                                            <option value="48">XXXXXL-Putih-Pendek</option>
+                                            <option>-------------------------------</option>
                                             <option value="11">S-Hijau-Pendek</option>
                                             <option value="12">M-Hijau-Pendek</option>
                                             <option value="13">L-Hijau-Pendek</option>
                                             <option value="14">XL-Hijau-Pendek</option>
-                                            <option value="15">XXL/X5L-Hijau-Pendek</option>
+                                            <option value="15">XXL-Hijau-Pendek</option>
+                                            <option value="40">XXXL-Hijau-Pendek</option>
+                                            <option value="41">XXXXL-Hijau-Pendek</option>
+                                            <option value="42">XXXXXL-Hijau-Pendek</option>
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword4">Panjang</label>
+                                        <select class="form-control" id="panjang" >
+                                            <option></option>
                                             <option value="16">S-Hitam-Panjang</option>
                                             <option value="17">M-Hitam-Panjang</option>
                                             <option value="18">L-Hitam-Panjang</option>
                                             <option value="19">XL-Hitam-Panjang</option>
-                                            <option value="20">XXL/X5L-Hitam-Panjang</option>
+                                            <option value="20">XXL-Hitam-Panjang</option>
+                                            <option value="34">XXXL-Hitam-Panjang</option>
+                                            <option value="35">XXXXL-Hitam-Panjang</option>
+                                            <option value="36">XXXXXL-Hitam-Panjang</option>
+                                            <option>--------------------------------</option>
                                             <option value="21">S-Putih-Panjang</option>
                                             <option value="22">M-Putih-Panjang</option>
                                             <option value="23">L-Putih-Panjang</option>
                                             <option value="24">XL-Putih-Panjang</option>
-                                            <option value="25">XXL/X5L-Putih-Panjang</option>
+                                            <option value="25">XXL-Putih-Panjang</option>
+                                            <option value="37">XXXL-Putih-Panjang</option>
+                                            <option value="38">XXXXL-Putih-Panjang</option>
+                                            <option value="39">XXXXXL-Putih-Panjang</option>
+                                            <option>--------------------------------</option>
                                             <option value="26">S-Hijau-Panjang</option>
                                             <option value="27">M-Hijau-Panjang</option>
                                             <option value="28">L-Hijau-Panjang</option>
                                             <option value="29">XL-Hijau-Panjang</option>
-                                            <option value="30">XXL/X5L-Hijau-Panjang</option>
+                                            <option value="30">XXL-Hijau-Panjang</option>
+                                            <option value="31">XXXL-Putih-Panjang</option>
+                                            <option value="32">XXXXL-Putih-Panjang</option>
+                                            <option value="33">XXXXXL-Putih-Panjang</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleSelectGender">Gender</label>
+                                        <!-- <label for="exampleSelectGender">Gender</label>
                                         <select class="form-control" id="gender" required>
                                             <option></option>
                                             <option>Perempuan</option>
                                             <option>Laki - Laki</option>
-                                        </select>
+                                        </select> -->
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleTextarea1">Alamat</label>
@@ -221,8 +284,7 @@
                                     </div>
                                     <h4></h4>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary"
-                                            onclick="saveData()">Submit</button>
+                                        <button type="submit" class="btn btn-primary save">Submit</button>
                                         <button type="button" class="btn btn-secondary">Cancel</button>
                                     </div>
 
@@ -230,25 +292,10 @@
                             </div>
                         </div>
                     </div>
-                    <div style="height: 100vh"></div>
-                    <div class="card mb-4">
-                        <div class="card-body">When scrolling, the navigation stays at the top of the page. This is the
-                            end of the static navigation demo.</div>
-                    </div>
+                   
                 </div>
             </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+          
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

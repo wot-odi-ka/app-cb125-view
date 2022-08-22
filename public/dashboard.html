@@ -7,8 +7,8 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
-        <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
-        <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+        <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script> -->
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> -->
         <link href="css/styles.css" rel="stylesheet" />
@@ -295,7 +295,8 @@ table.table .avatar {
                          } 
                       },
                       error:function(response){
-                    alert("Request time out, Please logout");
+                     alert("Request time out, Please logout click OK");
+                    //swal("Error", 'Request time out, Please logout', "error");
                     window.location.href="../../index.html";
                       }
                   })
@@ -378,8 +379,8 @@ $(document).on('click','.delete',function(){
                         data: JSON.stringify(logout),
                         success:function(data){
                         console.log(data);
-                       
-                        alert("Log Out successfully click OK", "success");
+                        swal("Log Out!", 'Log Out successfully click OK', "success");
+                        // alert("Log Out successfully click OK", "success");
                         window.location.href="../../index.html";
                    
                     },
@@ -440,47 +441,63 @@ $(document).on('click','.delete',function(){
           $(document).on('click','.edit',function(){
             let id=$(this).attr('data');
             $(document).on('click','.btnEdit',function() {
-            var nama = $('#nama');
+            var nama = $('#namaCustomers');
             var jumlahBaju = $('#jumlahBaju');
             var noHp = $('#noHp');
             var gender = $('#gender');
             var alamat = $('#alamat');
-            var id_Databaju = $('#id_dataBaju');
-            console.log(nama);
+            var pendek = $('#pendek');
+            var panjang = $('#panjang');
+           
             var product = {};
             product.nama = nama.val();
             product.jumlahBaju = jumlahBaju.val();
             product.noHp = noHp.val();
-            product.gender = gender.val();
-            product.alamat = alamat.val();
-            product.id_Databaju = id_Databaju.val();
             product.id = id;
+            product.alamat = alamat.val();
+            // product.gender = gender.val();
+            // product.id_Databaju = id_Databaju.val();
+
+            if(pendek.val() == ''){
+                product.id_Databaju = panjang.val();
+            }
+            if(panjang.val() == ''){
+                product.id_Databaju = pendek.val();
+            }
+
+            console.log(product);
+               
             if (product.nama == '') {
-                alert('nama tidak boleh kosong');
+                swal("Data!", 'Nama tidak boleh kosong', "warning",{
+                 buttons: false,
+                    timer: 2000,
+                });
                 return false;
             }
 
             if (product.noHp == '') {
-                alert('noHp tidak boleh kosong');
+                swal("Data!", 'NoHp tidak boleh kosong', "warning",{
+                buttons: false,
+                 timer: 2000,
+                });
                 return false;
             }
             if (product.jumlahBaju == '') {
-                alert('jumlahBaju tidak boleh kosong');
+                swal("Data!", 'Jumlah Baju tidak boleh kosong', "warning",{
+                buttons: false,
+                timer: 2000,
+                });
                 return false;
             }
-            if (product.id_Databaju == '') {
-                alert('id_Databaju tidak boleh kosong');
-                return false;
-            }
-            if (product.gender == '') {
-                alert('gender tidak boleh kosong');
-                return false;
-            }
-            if (product.alamat == '') {
-                alert('alamat tidak boleh kosong');
+            if (product.alamat == '') {                
+                swal("Data!", 'Alamat tidak boleh kosong', "warning",{
+             buttons: false,
+             timer: 2000,
+            });
                 return false;
             }
                 console.log(id);
+                console.log(product);
             $.ajax({
                 url: 'https://app-125se-backend.herokuapp.com/customer/update',
                     type: 'POST',
@@ -499,15 +516,6 @@ $(document).on('click','.delete',function(){
              });
           })
         });
-//         $(document).ready(function () {
-//     $('#datatablesSimple').dataTable({
-//         lengthMenu: [
-//             [10, 25, 50, -1],
-//             [10, 25, 50, 'All'],
-//         ],
-//     });
-// });
-        
       
           </script>
     </head>
@@ -694,7 +702,7 @@ $(document).on('click','.delete',function(){
 				<div class="modal-body">					
 					<div class="form-group">
                         <label for="exampleInputName1">Name</label>
-                        <input type="text" class="form-control" id="nama" required>
+                        <input type="text" class="form-control" id="namaCustomers" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail3">No handphone</label>
@@ -706,51 +714,80 @@ $(document).on('click','.delete',function(){
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputPassword4">Id Data baju</label>
-                        <select class="form-control" id="id_dataBaju" required>
+                        <label for="exampleInputPassword4">Pendek</label>
+                        <select class="form-control" id="pendek">
                             <option></option>
                             <option value="1">S-Hitam-pendek</option>
                             <option value="2">M-Hitam-pendek</option>
                             <option value="3">L-Hitam-Pendek</option>
                             <option value="4">XL-Hitam-Pendek</option>
-                            <option value="5">XXL/X5L-Hitam-Pendek</option>
+                            <option value="5">XXL-Hitam-Pendek</option>
+                            <option value="43">XXXL-Hitam-Pendek</option>
+                            <option value="44">XXXXL-Hitam-Pendek</option>
+                            <option value="45">XXXXXL-Hitam-Pendek</option>
+                            <option>------------------------------</option>
                             <option value="6">S-Putih-Pendek</option>
                             <option value="7">M-Putih-Pendek</option>
                             <option value="8">L-Putih-Pendek</option>
                             <option value="9">XL-Putih-Pendek</option>
-                            <option value="10">XXL/X5L-Putih-Pendek</option>
+                            <option value="10">XXL-Putih-Pendek</option>
+                            <option value="46">XXXL-Putih-Pendek</option>
+                            <option value="47">XXXXL-Putih-Pendek</option>
+                            <option value="48">XXXXXL-Putih-Pendek</option>
+                            <option>-------------------------------</option>
                             <option value="11">S-Hijau-Pendek</option>
                             <option value="12">M-Hijau-Pendek</option>
                             <option value="13">L-Hijau-Pendek</option>
                             <option value="14">XL-Hijau-Pendek</option>
-                            <option value="15">XXL/X5L-Hijau-Pendek</option>
+                            <option value="15">XXL-Hijau-Pendek</option>
+                            <option value="40">XXXL-Hijau-Pendek</option>
+                            <option value="41">XXXXL-Hijau-Pendek</option>
+                            <option value="42">XXXXXL-Hijau-Pendek</option>
+                            
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword4">Panjang</label>
+                        <select class="form-control" id="panjang" >
+                            <option></option>
                             <option value="16">S-Hitam-Panjang</option>
                             <option value="17">M-Hitam-Panjang</option>
                             <option value="18">L-Hitam-Panjang</option>
                             <option value="19">XL-Hitam-Panjang</option>
-                            <option value="20">XXL/X5L-Hitam-Panjang</option>
+                            <option value="20">XXL-Hitam-Panjang</option>
+                            <option value="34">XXXL-Hitam-Panjang</option>
+                            <option value="35">XXXXL-Hitam-Panjang</option>
+                            <option value="36">XXXXXL-Hitam-Panjang</option>
+                            <option>--------------------------------</option>
                             <option value="21">S-Putih-Panjang</option>
                             <option value="22">M-Putih-Panjang</option>
                             <option value="23">L-Putih-Panjang</option>
                             <option value="24">XL-Putih-Panjang</option>
-                            <option value="25">XXL/X5L-Putih-Panjang</option>
+                            <option value="25">XXL-Putih-Panjang</option>
+                            <option value="37">XXXL-Putih-Panjang</option>
+                            <option value="38">XXXXL-Putih-Panjang</option>
+                            <option value="39">XXXXXL-Putih-Panjang</option>
+                            <option>--------------------------------</option>
                             <option value="26">S-Hijau-Panjang</option>
                             <option value="27">M-Hijau-Panjang</option>
                             <option value="28">L-Hijau-Panjang</option>
                             <option value="29">XL-Hijau-Panjang</option>
-                            <option value="30">XXL/X5L-Hijau-Panjang</option>
+                            <option value="30">XXL-Hijau-Panjang</option>
+                            <option value="31">XXXL-Putih-Panjang</option>
+                            <option value="32">XXXXL-Putih-Panjang</option>
+                            <option value="33">XXXXXL-Putih-Panjang</option>
                         </select>
                     </div>
                     <div class="form-group">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="exampleSelectGender">Gender</label>
                         <select class="form-control" id="gender" required>
                             <option></option>
                             <option>Perempuan</option>
                             <option>Laki - Laki</option>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="exampleTextarea1">Alamat</label>
                         <textarea class="form-control" id="alamat" rows="4" required></textarea>
