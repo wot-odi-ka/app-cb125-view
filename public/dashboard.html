@@ -313,7 +313,7 @@ table.table .avatar {
                               Authorization: "Bearer " + localStorage.getItem("bearer")
                             },
                       success:function(result){
-                        $('#totalBaju').append(' <i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL TERJUAL</h6> <h2 class="m-b-20">'+result+'</h2>')
+                        $('#totalBaju').html(' <i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL TERJUAL</h6> <h2 class="m-b-20">'+result+ ' Pcs</h2>')
                        
                       },
                     
@@ -331,7 +331,7 @@ table.table .avatar {
                             },
                             data: 'hitam=Hitam',
                       success:function(result){
-                        $('#hitam').append('<i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HITAM</h6> <h2 class="m-b-20">'+result+'</h2>')
+                        $('#hitam').html('<i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HITAM</h6> <h2 class="m-b-20">'+result+ ' Pcs</h2>')
                        
                       },
                     
@@ -350,7 +350,7 @@ table.table .avatar {
                             },
                             data: 'hitam=Hitam',
                       success:function(result){
-                        $('#hitam').append('<i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HITAM</h6> <h2 class="m-b-20">'+result+'</h2>')
+                        $('#hitam').html('<i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HITAM</h6> <h2 class="m-b-20">'+result+ ' Pcs</h2>')
                        
                       },
                     
@@ -370,7 +370,7 @@ table.table .avatar {
                             },
                             data: 'putih=Putih',
                       success:function(result){
-                        $('#putih').append(' <i class="bi bi-basket3 float-end text-muted"></i> <h6 class="text-muted text-uppercase mt-0">TOTAL KAOS PUTIH</h6> <h2 class="m-b-20">'+result+'</h2>')
+                        $('#putih').html(' <i class="bi bi-basket3 float-end text-muted"></i> <h6 class="text-muted text-uppercase mt-0">TOTAL KAOS PUTIH</h6> <h2 class="m-b-20">'+result+ ' Pcs</h2>')
                        
                       },
                     
@@ -389,7 +389,25 @@ table.table .avatar {
                             },
                             data: 'hijau=Hijau',
                       success:function(result){
-                        $('#hijau').append(' <i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HIJAU</h6> <h2 class="m-b-20">'+result+'</h2>')
+                        $('#hijau').html(' <i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HIJAU</h6> <h2 class="m-b-20">'+result+ ' Pcs</h2>')
+                       
+                      },
+                    
+                  })
+              };
+                totalPendapatan();
+              function totalPendapatan(){ 
+              $.ajax({
+                      url:'https://app-125se-backend.herokuapp.com/customer/search/totalPendapatan',
+                      type: 'GET',
+                      dataType: 'json',
+                      headers: {
+                              "content-type": "application/json",
+                              Authorization: "Bearer " + localStorage.getItem("bearer")
+                            },
+                            
+                      success:function(result){
+                        $('#merah').html(' <i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL PENDAPATAN KAOS</h6> <h2 class="m-b-20">Rp.'+result+'</h2>')
                        
                       },
                     
@@ -425,11 +443,17 @@ $(document).on('click','.delete',function(){
                     // var oTable = $('#datatablesSimple').DataTable();
                     swal("Deleted!", "Your imaginary file has been deleted.", "success");
                     $('tableBody').detach();
+                    $('#merah').detach();
+                    $('#putih').detach();
+                    $('#hijau').detach();
+                    $('#hitam').detach();
+                    $('#totalBaju').detach();
                      getDataProduct();
                      totalBajuHijauTerjual();
                      totalBajuHitamTerjual();
                      totalBajuPutihTerjual();
                      totalBajuTerjual();
+                     totalPendapatan();
                 }
              });
           
@@ -728,14 +752,14 @@ $(document).on('click','.delete',function(){
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                         <div class="row">
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-2 col-md-8">
                                 <div class="card bg-warning text-white mb-4">
                                         <div class="card-body" id="totalBaju">
                                            
                                         </div> 
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-2 col-md-4">
                                 <div class="card bg-dark text-white mb-4">
                                     <div class="card-body" id="hitam">
                                         
@@ -743,7 +767,7 @@ $(document).on('click','.delete',function(){
                                     </div> 
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-2 col-md-4">
                                 <div class="card bg-white text-muted mb-4">
                                     <div class="card-body" id="putih">
                                        
@@ -751,9 +775,16 @@ $(document).on('click','.delete',function(){
                                     </div> 
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-2 col-md-4">
                                 <div class="card bg-success text-white mb-4">
                                     <div class="card-body" id="hijau">
+                                       
+                                        <!-- <span class="badge bg-primary"> +11% </span> <span class="text-white">From previous period</span> -->
+                                    </div> 
+                                </div>
+                            </div> <div class="col-xl-4 col-md-4">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body" id="merah">
                                        
                                         <!-- <span class="badge bg-primary"> +11% </span> <span class="text-white">From previous period</span> -->
                                     </div> 
