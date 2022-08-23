@@ -93,19 +93,20 @@
                     "content-type": "application/json",
                     Authorization: "Bearer " + localStorage.getItem("bearer")
                     },
-                success: function(result){
-                    swal("Insert!", 'Save Data Success', "success",{
-                    buttons: false,
-                timer: 3000,
-                });
+                     success: function(result){
+                        let del= 0;
+                        let times= 4000;
+                        while(times>0){
+                            setTimeout(function(){ swal("Insert!", 'Save Data Success', "success",{
+                            buttons: false,
+                            timer: 2000,
+                            }); }, del);
+                            del = del + 2000;
+                            setTimeout(function(){ window.location.href="../../dashboard.html"; }, del);
+                            times= times-1;
+                        }
                 },
-                complete: function() {
-                    swal("Insert!", 'Save Data Success', "success",{
-                    buttons: false,
-                timer: 3000,
-                });
-     
-    },
+               
                 error: function(er) {
                     alert("No insert data", "Error");
                 }
@@ -284,7 +285,7 @@
                                     </div>
                                     <h4></h4>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary save">Submit</button>
+                                        <button type="button" class="btn btn-primary save">Submit</button>
                                         <button type="button" class="btn btn-secondary">Cancel</button>
                                     </div>
 

@@ -35,7 +35,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script>
-      function singIn(){
+      $(document).on('click','.login',function(){
           var username= $('#userName'); 
           var password= $('#password'); 
           var user = {};
@@ -49,7 +49,6 @@
             alert('password tidak boleh kosong');
             return false;
         }
-          console.log(user);
           $.ajax({
               url:'https://app-125se-backend.herokuapp.com/api/auth/signin',
               type: 'POST',
@@ -57,15 +56,17 @@
               data: JSON.stringify(user),
               contentType: "application/json; charset=utf-8",
               success:function(data){
-                if(data != ''){
-                    localStorage.setItem('bearer',data.accessToken)
-                localStorage.setItem('refreshToken',data.refreshToken)
-                localStorage.setItem('UserId',data.id)
-                  alert("Login successfully click OK", "success");
-                  window.location.href="../../dashboard.html";
-                  username.val("");
-                  password.val("");
-                }
+                        let del= 0;
+                        let times= 5000;
+                        while(times>0){
+                            setTimeout(function(){ swal("Login!",'Login successfully click OK', "success",{
+                            buttons: false,
+                            timer: 2000,
+                            }); }, del);
+                            del = del + 2000;
+                            setTimeout(function(){  window.location.href="../../dashboard.html"; }, del);
+                            times= times-1;
+                        }
                 
               },
               error:function(er){
@@ -76,7 +77,7 @@
 )
               }
           }) 
-      };
+      });
    
     </script>
     </head>
@@ -105,7 +106,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="password.html">Forgot Password?</a>
-                                                <a class="btn btn-primary" onclick="singIn()">Login</a>
+                                                <button type="button" class="btn btn-primary login">Login</button>
                                             </div>
                                         </form>
                                     </div>

@@ -477,9 +477,20 @@ $(document).on('click','.delete',function(){
                         data: JSON.stringify(logout),
                         success:function(data){
                         console.log(data);
-                        swal("Log Out!", 'Log Out successfully click OK', "success");
-                        // alert("Log Out successfully click OK", "success");
-                        window.location.href="../../index.html";
+                        let del= 0;
+                        let times= 5000;
+                        while(times>0){
+                            setTimeout(function(){ swal("Log Out!", 'Log Out successfully click OK', "success",{
+                            buttons: false,
+                            timer: 2000,
+                            }); }, del);
+                            del = del + 2000;
+                            setTimeout(function(){ window.location.href="../../index.html"; }, del);
+                            times= times-1;
+                        }
+                        
+                       
+                        
                    
                     },
             })
