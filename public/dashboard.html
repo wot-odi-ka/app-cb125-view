@@ -272,10 +272,10 @@ table.table .avatar {
                         var data='';
                          if(result != null && result != ''){
                             $.each(result, function(i,item){
-                                console.log(item);
-                           // var table =  $('#tableBody').append(data);
+                                
+
                                 data+='<tr>';
-                                //  data+='<th>'+i+'</th>';
+                                data+='<th>'+i+++'</th>';
                                 data+='<td>'+item.nama+'</td>';
                                 data+='<td>'+item.jumlahBaju+'</td>';
                                 data+='<td>'+item.dataBaju.ukuranBaju+'</td>';
@@ -301,32 +301,102 @@ table.table .avatar {
                       }
                   })
               };
+              totalBajuTerjual();
 
-//               $(document).on('click','.delete',function(){
-//                 let id=$(this).attr('data');
-//                 $(document).on('click','.btnDelete',function() {
-//                 console.log(id);
-//             $.ajax({
-//                 url: 'https://app-125se-backend.herokuapp.com/customer/delete/'+id,
-//                     type: 'DELETE',
-//                       dataType: 'json',
-//                       headers: {
-//                               "content-type": "application/json",
-//                               Authorization: "Bearer " + localStorage.getItem("bearer")
-//                             },
-//                     data:'id='+id,
-//                     success: function(result) {
-//                     // var oTable = $('#tableBody').DataTable();
-//                     swal("Deleted!", "Your imaginary file has been deleted.", "success");
-//                     $('tableBody').detach();
-//                      getDataProduct();
-//                 }
-//              });
-          
-//     })
+              function totalBajuTerjual(){
+              $.ajax({
+                      url:'https://app-125se-backend.herokuapp.com/customer/search/total',
+                      type: 'GET',
+                      dataType: 'json',
+                      headers: {
+                              "content-type": "application/json",
+                              Authorization: "Bearer " + localStorage.getItem("bearer")
+                            },
+                      success:function(result){
+                        $('#totalBaju').append(' <i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL TERJUAL</h6> <h2 class="m-b-20">'+result+'</h2>')
+                       
+                      },
+                    
+                  })
+              };
 
-// })
+              function totalBajuHitamTerjual(){ 
+              $.ajax({
+                      url:'https://app-125se-backend.herokuapp.com/customer/search/hitam',
+                      type: 'GET',
+                      dataType: 'json',
+                      headers: {
+                              "content-type": "application/json",
+                              Authorization: "Bearer " + localStorage.getItem("bearer")
+                            },
+                            data: 'hitam=Hitam',
+                      success:function(result){
+                        $('#hitam').append('<i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HITAM</h6> <h2 class="m-b-20">'+result+'</h2>')
+                       
+                      },
+                    
+                  })
+              };
+              totalBajuHitamTerjual();
 
+              function totalBajuHitamTerjual(){ 
+              $.ajax({
+                      url:'https://app-125se-backend.herokuapp.com/customer/search/hitam',
+                      type: 'GET',
+                      dataType: 'json',
+                      headers: {
+                              "content-type": "application/json",
+                              Authorization: "Bearer " + localStorage.getItem("bearer")
+                            },
+                            data: 'hitam=Hitam',
+                      success:function(result){
+                        $('#hitam').append('<i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HITAM</h6> <h2 class="m-b-20">'+result+'</h2>')
+                       
+                      },
+                    
+                  })
+              };
+
+              totalBajuPutihTerjual();
+
+              function totalBajuPutihTerjual(){ 
+              $.ajax({
+                      url:'https://app-125se-backend.herokuapp.com/customer/search/putih',
+                      type: 'GET',
+                      dataType: 'json',
+                      headers: {
+                              "content-type": "application/json",
+                              Authorization: "Bearer " + localStorage.getItem("bearer")
+                            },
+                            data: 'putih=Putih',
+                      success:function(result){
+                        $('#putih').append(' <i class="bi bi-basket3 float-end text-muted"></i> <h6 class="text-muted text-uppercase mt-0">TOTAL KAOS PUTIH</h6> <h2 class="m-b-20">'+result+'</h2>')
+                       
+                      },
+                    
+                  })
+              };
+
+              totalBajuHijauTerjual();
+              function totalBajuHijauTerjual(){ 
+              $.ajax({
+                      url:'https://app-125se-backend.herokuapp.com/customer/search/hijau',
+                      type: 'GET',
+                      dataType: 'json',
+                      headers: {
+                              "content-type": "application/json",
+                              Authorization: "Bearer " + localStorage.getItem("bearer")
+                            },
+                            data: 'hijau=Hijau',
+                      success:function(result){
+                        $('#hijau').append(' <i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HIJAU</h6> <h2 class="m-b-20">'+result+'</h2>')
+                       
+                      },
+                    
+                  })
+              };
+
+              
 
 $(document).on('click','.delete',function(){
     let id=$(this).attr('data');
@@ -356,6 +426,10 @@ $(document).on('click','.delete',function(){
                     swal("Deleted!", "Your imaginary file has been deleted.", "success");
                     $('tableBody').detach();
                      getDataProduct();
+                     totalBajuHijauTerjual();
+                     totalBajuHitamTerjual();
+                     totalBajuPutihTerjual();
+                     totalBajuTerjual();
                 }
              });
           
@@ -404,10 +478,9 @@ $(document).on('click','.delete',function(){
                             var data='';
                          if(result != null && result != ''){
                             $.each(result, function(i,item){
-                                console.log(item);
-                           // var table =  $('#tableBody').append(data);
+             
                                 data+='<tr>';
-                                //  data+='<th>'+i+'</th>';
+                                data+='<th>'+i+'</th>';
                                 data+='<td>'+item.nama+'</td>';
                                 data+='<td>'+item.jumlahBaju+'</td>';
                                 data+='<td>'+item.dataBaju.ukuranBaju+'</td>';
@@ -451,10 +524,10 @@ $(document).on('click','.delete',function(){
                             var data='';
                          if(result != null && result != ''){
                             $.each(result, function(i,item){
-                                console.log(item);
+                            
                            // var table =  $('#tableBody').append(data);
                                 data+='<tr>';
-                                //  data+='<th>'+i+'</th>';
+                                data+='<th>'+i+'</th>';
                                 data+='<td>'+item.nama+'</td>';
                                 data+='<td>'+item.jumlahBaju+'</td>';
                                 data+='<td>'+item.dataBaju.ukuranBaju+'</td>';
@@ -656,39 +729,34 @@ $(document).on('click','.delete',function(){
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                                <div class="card bg-warning text-white mb-4">
+                                        <div class="card-body" id="totalBaju">
+                                           
+                                        </div> 
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                                <div class="card bg-dark text-white mb-4">
+                                    <div class="card-body" id="hitam">
+                                        
+                                        <!-- <span class="badge bg-primary"> +11% </span> <span class="text-white">From previous period</span> -->
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-white text-muted mb-4">
+                                    <div class="card-body" id="putih">
+                                       
+                                        <!-- <span class="badge bg-primary"> +11% </span> <span class="text-muted">From previous period</span> -->
+                                    </div> 
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                                    <div class="card-body" id="hijau">
+                                       
+                                        <!-- <span class="badge bg-primary"> +11% </span> <span class="text-white">From previous period</span> -->
+                                    </div> 
                                 </div>
                             </div>
                         </div>
@@ -733,6 +801,7 @@ $(document).on('click','.delete',function(){
                                                         <label for="selectAll"></label>
                                                     </span>
                                                 </th> -->
+                                                <th>No</th>
                                                 <th >Name</th>
                                                 <th >Jumlah baju</th>
                                                 <th >Ukuran baju</th>
