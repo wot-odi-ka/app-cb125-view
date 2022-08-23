@@ -423,7 +423,8 @@ $(document).on('click','.delete',function(){
                           $('#tableBody').html(data);
                          
                          }else{
-                            alert("nama tidak ada");
+                           // alert("nama tidak ada");
+                            swal("Warning!", 'Nama Tidak Ada', "warning");
                          } 
                    
                     },
@@ -432,9 +433,58 @@ $(document).on('click','.delete',function(){
     }
             })
           };
+
+          function findByWarnaBaju(){
+           var warna = $('#warna').val()
+           console.log(warna)
+            $.ajax({
+                url:'https://app-125se-backend.herokuapp.com/customer/search/warna',
+                type:'GET',
+                dataType: 'json',
+                headers: {
+                              "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                              Authorization: "Bearer " + localStorage.getItem("bearer")
+                        },
+                        
+                        data: 'warna='+warna,
+                        success:function(result){
+                            var data='';
+                         if(result != null && result != ''){
+                            $.each(result, function(i,item){
+                                console.log(item);
+                           // var table =  $('#tableBody').append(data);
+                                data+='<tr>';
+                                //  data+='<th>'+i+'</th>';
+                                data+='<td>'+item.nama+'</td>';
+                                data+='<td>'+item.jumlahBaju+'</td>';
+                                data+='<td>'+item.dataBaju.ukuranBaju+'</td>';
+                                data+='<td>'+item.dataBaju.warnaBaju+'</td>';
+                                data+='<td>'+item.dataBaju.jenisBaju+'</td>';
+                                data+='<td>'+item.totalHarga+'</td>';
+                                data+='<td>'+item.alamat+'</td>';
+                                data+='<td><a href="#editEmployeeModal" class="edit" data="'+item.id+'" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>';
+                                data+='</a> <a href="#" class="delete" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>';
+                                data+='</tr>';
+                            });
+                          
+                          $('#tableBody').html(data);
+                         
+                         }else{
+                           // alert("nama tidak ada");
+                            swal("Warning!", 'Warna Tidak Ada', "warning");
+                         } 
+                   
+                    },
+                    error:function(response){
+                    alert("something went wrong");
+    }
+            })
+          };
+
           $(document).on('click','#btnClear',function(){
         //   $('#btnClear').on('click', function() {
 			$('#nama').val('');
+            $('#warna').val('')
            
 		});
 
@@ -645,14 +695,24 @@ $(document).on('click','.delete',function(){
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <div class="col-sm-4">
+                                        
                                     <div class="search-box">
-                                        <input type="text" id="nama" class="form-control" placeholder="Search&hellip;">
+                                        
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" id="warna" placeholder="Search Warna Baju..." aria-label="Search Warna Baju..." aria-describedby="btnNavbarSearch" />
+                                            <button class="btn btn-primary" id="btnWarna" onclick="findByWarnaBaju()" type="button"><i class="fas fa-search"></i></button>
+                                        </div>
                                         <h1></h1>
-                                        <button type="button" class="btn btn-sm btn-primary"
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" id="nama" placeholder="Search Nama..." aria-label="Search Nama..." aria-describedby="btnNavbarSearch" />
+                                            <button class="btn btn-primary" id="btnSearch" onclick="findByNama()" type="button"><i class="fas fa-search"></i></button>
+                                        </div>
+                                        <h1></h1>
+                                        <!-- <button type="button" class="btn btn-sm btn-primary"
                                         id="btnSearch" onclick="findByNama()">
                                         <i class="fa fa-search"></i> Cari
-                                    </button>
-                                    &nbsp; &nbsp;
+                                    </button> -->
+                                    
 										<button type="button" class="btn btn-sm btn-info"
 											id="btnClear" onclick="getDataProduct()">
 											<i class="la la-remove"></i> Reset
