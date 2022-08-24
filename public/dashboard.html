@@ -12,6 +12,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> -->
         <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
         <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
         <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script> -->
         <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
@@ -313,30 +314,30 @@ table.table .avatar {
                               Authorization: "Bearer " + localStorage.getItem("bearer")
                             },
                       success:function(result){
-                        $('#totalBaju').html(' <i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL TERJUAL</h6> <h2 class="m-b-20">'+result+ ' Pcs</h2>')
+                        $('#totalBaju').html('<div class="row no-gutters align-items-center"><div class="col mr-2"><div class="text-xs font-weight-bold text-warning text-uppercase mb-1">TOTAL KAOS TERJUAL</div><div class="h5 mb-0 font-weight-bold text-gray-800">'+result+' Pcs</div></div><div class="col-auto"><i class="fas fa-tshirt fa-2x text-gray-300"></i></div></div>')
                        
                       },
                     
                   })
               };
 
-              function totalBajuHitamTerjual(){ 
-              $.ajax({
-                      url:'https://app-125se-backend.herokuapp.com/customer/search/hitam',
-                      type: 'GET',
-                      dataType: 'json',
-                      headers: {
-                              "content-type": "application/json",
-                              Authorization: "Bearer " + localStorage.getItem("bearer")
-                            },
-                            data: 'hitam=Hitam',
-                      success:function(result){
-                        $('#hitam').html('<i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HITAM</h6> <h2 class="m-b-20">'+result+ ' Pcs</h2>')
+              //function totalBajuHitamTerjual(){ 
+            //   $.ajax({
+            //           url:'https://app-125se-backend.herokuapp.com/customer/search/hitam',
+            //           type: 'GET',
+            //           dataType: 'json',
+            //           headers: {
+            //                   "content-type": "application/json",
+            //                   Authorization: "Bearer " + localStorage.getItem("bearer")
+            //                 },
+            //                 data: 'hitam=Hitam',
+            //           success:function(result){
+            //             $('#hitam').html('<i class="fas fa-line-chart fa-2x p-3"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HITAM</h6> <h2 class="m-b-20"><i class="fa fa-angle-up"></i> '+result+ ' Pcs</h2>')
                        
-                      },
+            //           },
                     
-                  })
-              };
+            //       })
+            //   };
               totalBajuHitamTerjual();
 
               function totalBajuHitamTerjual(){ 
@@ -350,7 +351,7 @@ table.table .avatar {
                             },
                             data: 'hitam=Hitam',
                       success:function(result){
-                        $('#hitam').html('<i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HITAM</h6> <h2 class="m-b-20">'+result+ ' Pcs</h2>')
+                        $('#hitam').html('<div class="row no-gutters align-items-center"><div class="col mr-2"><div class="text-xs font-weight-bold text-dark text-uppercase mb-1">TOTAL KAOS HITAM</div><div class="h5 mb-0 font-weight-bold text-gray-800">'+result+' Pcs</div></div><div class="col-auto"><i class="fas fa-tshirt fa-2x text-gray-300"></i></div></div>')
                        
                       },
                     
@@ -370,7 +371,7 @@ table.table .avatar {
                             },
                             data: 'putih=Putih',
                       success:function(result){
-                        $('#putih').html(' <i class="bi bi-basket3 float-end text-muted"></i> <h6 class="text-muted text-uppercase mt-0">TOTAL KAOS PUTIH</h6> <h2 class="m-b-20">'+result+ ' Pcs</h2>')
+                        $('#putih').html('<div class="row no-gutters align-items-center"><div class="col mr-2"><div class="text-xs font-weight-bold text-primary text-uppercase mb-1">TOTAL KAOS PUTIH</div><div class="h5 mb-0 font-weight-bold text-gray-800">'+result+' Pcs</div></div><div class="col-auto"><i class="fas fa-tshirt fa-2x text-gray-300"></i></div></div>')
                        
                       },
                     
@@ -389,7 +390,7 @@ table.table .avatar {
                             },
                             data: 'hijau=Hijau',
                       success:function(result){
-                        $('#hijau').html(' <i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL KAOS HIJAU</h6> <h2 class="m-b-20">'+result+ ' Pcs</h2>')
+                        $('#hijau').html('<div class="row no-gutters align-items-center"><div class="col mr-2"><div class="text-xs font-weight-bold text-success text-uppercase mb-1">TOTAL KAOS HIJAU</div><div class="h5 mb-0 font-weight-bold text-gray-800">'+result+' Pcs</div></div><div class="col-auto"><i class="fas fa-tshirt fa-2x text-gray-300"></i></div></div>')
                        
                       },
                     
@@ -407,7 +408,7 @@ table.table .avatar {
                             },
                             
                       success:function(result){
-                        $('#merah').html(' <i class="bi bi-basket3 float-end text-white"></i> <h6 class="text-white text-uppercase mt-0">TOTAL PENDAPATAN KAOS</h6> <h2 class="m-b-20">Rp.'+result+'</h2>')
+                        $('#merah').html('<div class="row no-gutters align-items-center"><div class="col mr-2"><div class="text-xs font-weight-bold text-danger text-uppercase mb-1">TOTAL PENDAPATAN</div><div class="h5 mb-0 font-weight-bold text-gray-800">Rp. '+result+'</div></div><div class="col-auto"><i class="fas fa-chart-line fa-2x text-gray-300"></i></div></div>')
                        
                       },
                     
@@ -763,44 +764,42 @@ $(document).on('click','.delete',function(){
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                         <div class="row">
-                            <div class="col-xl-3 col-md-4">
-                                <div class="card bg-warning text-white mb-4">
-                                        <div class="card-body" id="totalBaju">
-                                           
-                                        </div> 
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body" id="totalBaju">
+                                       
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-4">
-                                <div class="card bg-dark text-white mb-4">
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-dark shadow h-100 py-2">
                                     <div class="card-body" id="hitam">
-                                        
-                                        <!-- <span class="badge bg-primary"> +11% </span> <span class="text-white">From previous period</span> -->
-                                    </div> 
+                                       
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-4">
-                                <div class="card bg-white text-muted mb-4">
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
                                     <div class="card-body" id="putih">
                                        
-                                        <!-- <span class="badge bg-primary"> +11% </span> <span class="text-muted">From previous period</span> -->
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-4">
-                                <div class="card bg-success text-white mb-4">
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
                                     <div class="card-body" id="hijau">
                                        
-                                        <!-- <span class="badge bg-primary"> +11% </span> <span class="text-white">From previous period</span> -->
-                                    </div> 
-                                </div>
-                            </div> <div class="col-xl-4 col-md-4">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body" id="merah">
-                                       
-                                        <!-- <span class="badge bg-primary"> +11% </span> <span class="text-white">From previous period</span> -->
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-xl-4 col-md-6 mb-4">
+                                <div class="card border-left-danger shadow h-100 py-2">
+                                    <div class="card-body" id="merah">
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                          
                         </div>
                             <div class="card mb-4">
                                 <div class="card-header">
