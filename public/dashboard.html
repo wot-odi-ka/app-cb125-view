@@ -477,7 +477,7 @@ $(document).on('click','.delete',function(){
                         },
                         data: JSON.stringify(logout),
                         success:function(data){
-                        console.log(data);
+                        localStorage.clear()
                         let del= 0;
                         let times= 5000;
                         while(times>0){
