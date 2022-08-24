@@ -56,18 +56,8 @@
               data: JSON.stringify(user),
               contentType: "application/json; charset=utf-8",
               success:function(data){
-                        let del= 0;
-                        let times= 5000;
-                        while(times>0){
-                            setTimeout(function(){ swal("Login!",'Login successfully click OK', "success",{
-                            buttons: false,
-                            timer: 2000,
-                            }); }, del);
-                            del = del + 2000;
-                            setTimeout(function(){  window.location.href="../../dashboard.html"; }, del);
-                            times= times-1;
-                        }
-                
+                alert('success Login, Kilik Ok');
+                window.location.href="../../dashboard.html"; 
               },
               error:function(er){
                 Swal.fire(
