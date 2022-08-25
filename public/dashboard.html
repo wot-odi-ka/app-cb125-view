@@ -277,13 +277,13 @@ table.table .avatar {
 
                                 data+='<tr>';
                                 data+='<th>'+i+++'</th>';
-                                data+='<td>'+item.nama+'</td>';
-                                data+='<td>'+item.jumlahBaju+'</td>';
-                                data+='<td>'+item.dataBaju.ukuranBaju+'</td>';
-                                data+='<td>'+item.dataBaju.warnaBaju+'</td>';
-                                data+='<td>'+item.dataBaju.jenisBaju+'</td>';
-                                data+='<td>'+item.totalHarga+'</td>';
-                                data+='<td>'+item.alamat+'</td>';
+                                data+='<td  dataNam="'+item.nama+'">'+item.nama+'</td>';
+                                data+='<td  dataJml="'+item.jumlahBaju+'">'+item.jumlahBaju+'</td>';
+                                data+='<td  dataUk="'+item.dataBaju.ukuranBaju+'">'+item.dataBaju.ukuranBaju+'</td>';
+                                data+='<td  dataWa="'+item.dataBaju.warnaBaju+'">'+item.dataBaju.warnaBaju+'</td>';
+                                data+='<td  dataJs="'+item.dataBaju.jenisBaju+'">'+item.dataBaju.jenisBaju+'</td>';
+                                data+='<td  dataTotal="'+item.totalHarga+'">'+item.totalHarga+'</td>';
+                                data+='<td  dataAl="'+item.alamat+'">'+item.alamat+'</td>';
                                 data+='<td><a href="#editEmployeeModal" class="edit" data="'+item.id+'" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>';
                                 data+='</a> <a href="#" class="delete" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>';
                                 data+='</tr>';
@@ -466,7 +466,7 @@ $(document).on('click','.delete',function(){
             let userId = localStorage.getItem("UserId")
             var logout = {};
             logout.userId = userId;
-            console.log(logout);
+        
             $.ajax({
                 url:'https://app-125se-backend.herokuapp.com/api/auth/logout',
                 type:'POST',
@@ -499,7 +499,7 @@ $(document).on('click','.delete',function(){
 
           function findByNama(){
            var nama = $('#nama').val()
-           console.log(nama)
+        
             $.ajax({
                 url:'https://app-125se-backend.herokuapp.com/customer/search/nama',
                 type:'GET',
@@ -545,7 +545,7 @@ $(document).on('click','.delete',function(){
 
           function findByWarnaBaju(){
            var warna = $('#warna').val()
-           console.log(warna)
+         
             $.ajax({
                 url:'https://app-125se-backend.herokuapp.com/customer/search/warna',
                 type:'GET',
@@ -599,6 +599,38 @@ $(document).on('click','.delete',function(){
 
           $(document).on('click','.edit',function(){
             let id=$(this).attr('data');
+            $.ajax({
+                url:'https://app-125se-backend.herokuapp.com/customer/search/'+id,
+                type:'GET',
+                dataType: 'json',
+                headers: {
+                              "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                              Authorization: "Bearer " + localStorage.getItem("bearer")
+                        },
+                        
+                        success:function(result){
+                          
+                            $('#namaCustomers').val(result.nama);
+                            $('#jumlahBaju').val(result.jumlahBaju)
+                            $('#noHp').val(result.noHp)
+                           // $('#gender').val(result.gender)
+                            $('#alamat').val(result.alamat)
+                            //  if(result.dataBaju.jenisBaju == 'Pendek' ){
+                            //     $('#pendek').val(result.dataBaju.id)
+                            //  }
+                            //  if(result.dataBaju.jenisBaju == 'Panjang' ){
+                            //     $('#panjang').val(result.dataBaju.id)
+                            //  }
+                           
+                            
+                        
+                 
+                    },
+                    error:function(response){
+                    alert("something went wrong");
+                }
+            })
+          
             $(document).on('click','.btnEdit',function() {
             var nama = $('#namaCustomers');
             var jumlahBaju = $('#jumlahBaju');
@@ -624,7 +656,7 @@ $(document).on('click','.delete',function(){
                 product.id_Databaju = pendek.val();
             }
 
-            console.log(product);
+         
                
             if (product.nama == '') {
                 swal("Data!", 'Nama tidak boleh kosong', "warning",{
@@ -655,8 +687,7 @@ $(document).on('click','.delete',function(){
             });
                 return false;
             }
-                console.log(id);
-                console.log(product);
+               
             $.ajax({
                 url: 'https://app-125se-backend.herokuapp.com/customer/update',
                     type: 'POST',
@@ -668,10 +699,21 @@ $(document).on('click','.delete',function(){
                     data:JSON.stringify(product),
                     success: function(result) {
                     // var oTable = $('#tableBody').DataTable();
+                            $('#namaCustomers').val('');
+                            $('#jumlahBaju').val('')
+                            $('#noHp').val('')
+                            $('#alamat').val('')
+                            $('#pendek').val('')
+                            $('#panjang').val('')
+                             
                     swal("Update!", "Your imaginary file has been Update.", "success");
                     $('tableBody').detach();
                      getDataProduct();
+                },
+                error:function(response){
+                    swal("Error!", "Server Procesing", "error");
                 }
+                
              });
           })
         });
@@ -965,7 +1007,7 @@ $(document).on('click','.delete',function(){
                     <h4></h4>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info btnEdit" value="Save" id="btnEdit">
+					<input type="button" class="btn btn-info btnEdit" value="Save" id="btnEdit">
 				</div>
 			</form>
 		</div>
