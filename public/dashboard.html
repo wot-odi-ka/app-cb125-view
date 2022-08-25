@@ -29,8 +29,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
 <style>
 body {
 	color: #566787;
@@ -258,6 +263,67 @@ table.table .avatar {
 }	
 </style>
 <script type="text/javascript"  language="javascript" class="init">
+
+
+function Export() {
+    swal({   
+          title: "Apakah Kamu Yakin?",   
+          text: "Ingin Export data ini",   
+          type: "warning",   
+          showCancelButton: !0,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Yes, Export it!",   
+          cancelButtonText: "No",
+          closeOnConfirm: false 
+      }).then(isConfirmed => { 
+        if(isConfirmed) {
+    var doc = new jsPDF('p', 'pt', 'letter');
+    var htmlstring = '';
+    var tempVarToCheckPageHeight = 0;
+    var pageHeight = 0;
+    pageHeight = doc.internal.pageSize.height;
+    specialElementHandlers = {
+        // element with id of "bypass" - jQuery style selector  
+        '#bypassme': function (element, renderer) {
+            // true = "handled elsewhere, bypass text extraction"  
+            return true
+        }
+    };
+    margins = {
+        top: 30,
+        bottom: 10,
+        left: 5,
+        right: 10,
+        width: 300
+    };
+    var y = 20;
+    doc.setLineWidth(2);
+    doc.text(200, y = y + 40, "CB125_se");
+    doc.autoTable({
+        html: '#datatablesSimple',
+        startY: 70,
+        theme: 'grid',
+        columnStyles: {
+            0: {
+                cellWidth: 40,
+            },
+            1: {
+                cellWidth: 60,
+            },
+            2: {
+                cellWidth: 60,
+            }
+        },
+        styles: {
+            minCellHeight: 40
+        }
+    })
+    doc.save('Table_cb125_se.pdf');
+}
+      });
+    
+}
+
             getDataProduct(); 
             function getDataProduct(){
               $.ajax({
@@ -284,8 +350,9 @@ table.table .avatar {
                                 data+='<td  dataJs="'+item.dataBaju.jenisBaju+'">'+item.dataBaju.jenisBaju+'</td>';
                                 data+='<td  dataTotal="'+item.totalHarga+'">'+item.totalHarga+'</td>';
                                 data+='<td  dataAl="'+item.alamat+'">'+item.alamat+'</td>';
-                                data+='<td><a href="#editEmployeeModal" class="edit" data="'+item.id+'" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>';
-                                data+='</a> <a href="#" class="delete" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>';
+                                data+='<td> <a href="#editEmployeeModal" class="edit" data="'+item.id+'" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>';
+                                data+='</a> <a href="#" class="delete" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
+                                // data+='</a> <a href="detailCustomer.html" data-target="#detailModal" class="detail" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Detail">assignment</i></a></td>';
                                 data+='</tr>';
                             });
                           
@@ -597,6 +664,44 @@ $(document).on('click','.delete',function(){
            
 		});
 
+        $(document).on('click','.detail',function(){
+            let id=$(this).attr('data');
+            $.ajax({
+                url:'https://app-125se-backend.herokuapp.com/customer/search/'+id,
+                type:'GET',
+                dataType: 'json',
+                headers: {
+                              "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                              Authorization: "Bearer " + localStorage.getItem("bearer")
+                        },
+                        
+                        success:function(result){
+                          
+                            $('#namaCustomers').val(result.nama);
+                            $('#jumlahBaju').val(result.jumlahBaju)
+                            $('#noHp').val(result.noHp)
+                                // $('#gender').val(result.gender)
+                            $('#alamat').val(result.alamat)
+                            $('#pendek').val(result.dataBaju.id)
+                            $('#panjang').val(result.dataBaju.id)
+                                $('#totalHarga').val(result.totalHarga)
+                                $('#hargaBaju').val(result.dataBaju.hargaBaju)
+                                $('#namaBaju').val(result.dataBaju.namaBaju)
+
+
+                          
+
+                           console.log(result)
+                            
+                        
+                 
+                    },
+                    error:function(response){
+                    alert("something went wrong");
+                }
+            })
+        })
+
           $(document).on('click','.edit',function(){
             let id=$(this).attr('data');
             $.ajax({
@@ -705,6 +810,7 @@ $(document).on('click','.delete',function(){
                             $('#alamat').val('')
                             $('#pendek').val('')
                             $('#panjang').val('')
+                            id = 0;
                              
                     swal("Update!", "Your imaginary file has been Update.", "success");
                     $('tableBody').detach();
@@ -729,8 +835,8 @@ $(document).on('click','.delete',function(){
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                    <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> -->
                 </div>
             </form>
             <!-- Navbar-->
@@ -859,10 +965,10 @@ $(document).on('click','.delete',function(){
                                             <button class="btn btn-primary" id="btnSearch" onclick="findByNama()" type="button"><i class="fas fa-search"></i></button>
                                         </div>
                                         <h1></h1>
-                                        <!-- <button type="button" class="btn btn-sm btn-primary"
-                                        id="btnSearch" onclick="findByNama()">
-                                        <i class="fa fa-search"></i> Cari
-                                    </button> -->
+                                        <button type="button" class="btn btn-sm btn-primary"
+                                        id="btn" onclick="Export()">
+                                        <i class="fa fa-search"></i> Expord
+                                    </button>
                                     
 										<button type="button" class="btn btn-sm btn-info"
 											id="btnClear" onclick="getDataProduct()">
@@ -902,6 +1008,7 @@ $(document).on('click','.delete',function(){
                     </div>
                 </main>
             </div>
+          
    
 <div id="editEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
@@ -918,7 +1025,7 @@ $(document).on('click','.delete',function(){
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail3">No handphone</label>
-                        <input type="number" class="form-control" id="noHp" required>
+                        <input type="text" class="form-control" id="noHp" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Jumlah Baju</label>
@@ -1033,7 +1140,8 @@ $(document).on('click','.delete',function(){
 		</div>
 	</div>
 </div>
-        </div>
+
+</div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
