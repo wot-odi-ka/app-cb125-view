@@ -268,7 +268,7 @@ table.table .avatar {
 function Export() {
     swal({   
           title: "Apakah Kamu Yakin?",   
-          text: "Ingin Export data ini",   
+          text: "Ingin Export data ini, Klick Ok",   
           type: "warning",   
           showCancelButton: !0,   
           confirmButtonColor: "#DD6B55",   
@@ -352,7 +352,7 @@ function Export() {
                                 data+='<td  dataAl="'+item.alamat+'">'+item.alamat+'</td>';
                                 data+='<td> <a href="#editEmployeeModal" class="edit" data="'+item.id+'" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>';
                                 data+='</a> <a href="#" class="delete" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
-                                // data+='</a> <a href="detailCustomer.html" data-target="#detailModal" class="detail" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Detail">assignment</i></a></td>';
+                                // data+='</a> <a href="detailCustomer.html" data-target="#detailModal" class="detail" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Detail">&#xe417</i></a></td>';
                                 data+='</tr>';
                             });
                           
@@ -965,9 +965,9 @@ $(document).on('click','.delete',function(){
                                             <button class="btn btn-primary" id="btnSearch" onclick="findByNama()" type="button"><i class="fas fa-search"></i></button>
                                         </div>
                                         <h1></h1>
-                                        <button type="button" class="btn btn-sm btn-primary"
+                                        <button type="button" class="btn btn-sm btn-success"
                                         id="btn" onclick="Export()">
-                                        <i class="fa fa-search"></i> Expord
+                                        <i class="far fa-file-pdf"></i> Export Pdf
                                     </button>
                                     
 										<button type="button" class="btn btn-sm btn-info"
