@@ -45,7 +45,7 @@
             product.nama = nama.val();
             product.jumlahBaju = jumlahBaju.val();
             product.noHp = noHp.val();
-            // product.gender = gender.val();
+            product.username = localStorage.getItem("username");
             product.alamat = alamat.val();
             if(pendek.val() == ''){
                 product.id_Databaju = panjang.val();
