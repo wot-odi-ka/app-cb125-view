@@ -335,11 +335,11 @@ function Export() {
                               Authorization: "Bearer " + localStorage.getItem("bearer")
                             },
                       success:function(result){
-                        
+                       
                         var data='';
                          if(result != null && result != ''){
                             $.each(result, function(i,item){
-                                
+                                console.log(item)
 
                                 data+='<tr>';
                                 data+='<th>'+i+++'</th>';
