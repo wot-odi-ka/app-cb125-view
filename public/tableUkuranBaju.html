@@ -7,16 +7,33 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Tables Data Baju - SB Admin</title>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+ <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+        <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script> -->
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> -->
         <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+            <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script> -->
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+            <script src=" https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> -->
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <style>
@@ -246,32 +263,37 @@
             }	
             </style>
           <script>
-            getDataProduct();
+          
             function getDataProduct(){
+                var warna = $('#warna').val()
+                var jenis = $('#jenis').val()
               $.ajax({
-                      url:'https://app-125se-backend.herokuapp.com/baju/getAll',
+                      url:'https://app-125se-backend.herokuapp.com/customer/ukuran',
                       type: 'GET',
                       dataType: 'json',
                       headers: {
-                              "content-type": "application/json",
+                              "content-type": "application/x-www-form-urlencoded; charset=UTF-8'",
                               Authorization: "Bearer " + localStorage.getItem("bearer")
                             },
+                            data: {'warna':warna,'jenis' :jenis},
+                            
                       success:function(result){
                          // console.log(data.dataBaju);
                          var data='';
                           $.each(result, function(i,data1){
                             data+='<tr>';
-                                data+='<td>'+data1.id+'</td>';
-                                data+='<td>'+data1.namaBaju+'</td>';
-                                data+='<td>'+data1.ukuranBaju+'</td>';
-                                data+='<td>'+data1.hargaBaju+'</td>';
-                                data+='<td>'+data1.warnaBaju+'</td>';
-                                data+='<td>'+data1.jenisBaju+'</td>';
-                                // data+='<td>'+item.alamat+'</td>';
-                                // data+='<td><button class="btn btn-outline-info " data="'+data1.id+'" data-toggle="modal" data-target="#Modaledit">edit</button> <h2></h2> <button class="btn btn-outline-danger btn-sm btn-hapus" data="'+data1.id+'">hapus</button></td>';
-                                data+='<td><a href="#editEmployeeModal" class="edit" data="'+data1.id+'" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>';
-                                data+='</a><a href="#" class="btn-hapus" data="'+data1.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>';
-                                data+='</tr>';
+                                data+='<td>'+data1.ukuran_baju+'</td>';
+                                data+='<td>'+data1.jumlah_baju+'</td>';
+                               
+                                // data+='<td>'+data1.ukuranBaju+'</td>';
+                                // data+='<td>'+data1.hargaBaju+'</td>';
+                                // data+='<td>'+data1.warnaBaju+'</td>';
+                                // data+='<td>'+data1.jenisBaju+'</td>';
+                                // // data+='<td>'+item.alamat+'</td>';
+                                // // data+='<td><button class="btn btn-outline-info " data="'+data1.id+'" data-toggle="modal" data-target="#Modaledit">edit</button> <h2></h2> <button class="btn btn-outline-danger btn-sm btn-hapus" data="'+data1.id+'">hapus</button></td>';
+                                // data+='<td><a href="#editEmployeeModal" class="edit" data="'+data1.id+'" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>';
+                                // data+='</a><a href="#" class="btn-hapus" data="'+data1.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>';
+                                // data+='</tr>';
                           });
                           $('#tableBaju').html(data);
                       }
@@ -393,32 +415,53 @@
                     </div>
                 </nav>
             </div>
+
+            
             <div id="layoutSidenav_content">
                 <main>
+                    
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables Data Baju</h1>
+                        <h1 class="mt-4">Tables Data Ukuran Baju</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
                             <li class="breadcrumb-item active">Tables Data Baju</li>
                         </ol>
-                       
+                        <div class="form-group">
+                            <label for="exampleSelectGender">Warna Baju</label>
+                            <select class="form-control" id="warna" required style="width: 250px;">
+                                <option></option>
+                                <option>Hitam</option>
+                                <option>Putih</option>
+                                <option>Hijau</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleSelectGender">Jenis Baju</label>
+                            <select class="form-control" id="jenis"  required style="width: 250px;">
+                                <option></option>
+                                <option>Panjang</option>
+                                <option>Pendek</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                        <button type="button" class="btn btn-sm btn-info" id="btnClear"
+                        onclick="getDataProduct()">
+                        <i class="la la-remove"></i> Cari
+                    </button>
+                        </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable Baju
+                                DataTable Ukuran Baju
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple" class="table table-striped table-hover table-bordered"
                                 width="100%">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Nama Baju</th>
                                             <th>Ukuran Baju</th>
-                                            <th>Harga Baju</th>
-                                            <th>Warna Baju</th>
-                                            <th>Jenis Baju</th>
-                                            <th>Action</th>
+                                            <th>Total Baju</th>
+                                           
                                         </tr>
                                     </thead>
                                     <tbody id="tableBaju">
