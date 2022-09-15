@@ -359,14 +359,32 @@
                         theme: 'grid',
                         columnStyles: {
                             0: {
-                                cellWidth: 40,
+                                cellWidth: 30,
                             },
                             1: {
-                                cellWidth: 60,
+                                cellWidth: 50,
                             },
                             2: {
-                                cellWidth: 60,
-                            }
+                                cellWidth:60,
+                            },
+                            3: {
+                                cellWidth:60,
+                            },
+                            4: {
+                                cellWidth:50,
+                            },
+                            5: {
+                                cellWidth:50,
+                            },
+                            6: {
+                                cellWidth:50,
+                            },
+                            7: {
+                                cellWidth:100,
+                            },
+                            8: {
+                                cellWidth:1,
+                            },
                         },
                         styles: {
                             minCellHeight: 40
@@ -397,13 +415,13 @@
 
                             data += '<tr>';
                             data += '<th>' + i++ + '</th>';
-                            data += '<td  dataNam="' + item.nama + '">' + item.nama + '</td>';
-                            data += '<td  dataJml="' + item.jumlahBaju + '">' + item.jumlahBaju + '</td>';
-                            data += '<td  dataUk="' + item.dataBaju.ukuranBaju + '">' + item.dataBaju.ukuranBaju + '</td>';
-                            data += '<td  dataWa="' + item.dataBaju.warnaBaju + '">' + item.dataBaju.warnaBaju + '</td>';
-                            data += '<td  dataJs="' + item.dataBaju.jenisBaju + '">' + item.dataBaju.jenisBaju + '</td>';
-                            data += '<td  dataTotal="' + item.totalHarga + '">' + item.totalHarga + '</td>';
-                            data += '<td  dataAl="' + item.alamat + '">' + item.alamat + '</td>';
+                            data += '<td>' + item.nama + '</td>';
+                            data += '<td>' + item.jumlahBaju + '</td>';
+                            data += '<td>' + item.dataBaju.ukuranBaju + '</td>';
+                            data += '<td>' + item.dataBaju.warnaBaju + '</td>';
+                            data += '<td>' + item.dataBaju.jenisBaju + '</td>';
+                            data += '<td>' + item.totalHarga + '</td>';
+                            data += '<td>' + item.alamat + '</td>';
                             data += '<td> <a href="#editEmployeeModal" data-target="#editEmployeeModal" class="edit" data="' + item.id + '" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>';
                             data += '</a> <a href="#" class="delete" data="' + item.id + '" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
                             //  data+='</a> <a href="#detailModal" data-target="#detailModal" class="detail" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Detail">&#xe417</i></a></td>';
@@ -1072,12 +1090,6 @@
                                 width="100%">
                                 <thead>
                                     <tr>
-                                        <!-- <th>
-                                                    <span class="custom-checkbox">
-                                                        <input type="checkbox" id="selectAll">
-                                                        <label for="selectAll"></label>
-                                                    </span>
-                                                </th> -->
                                         <th>No</th>
                                         <th>Name</th>
                                         <th>Jumlah baju</th>
@@ -1089,7 +1101,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tableBody"></tbody>
+                                <tbody id="tableBody" class=""></tbody>
                             </table>
                         </div>
                     </div>
