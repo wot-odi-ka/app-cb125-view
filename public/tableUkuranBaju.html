@@ -268,7 +268,7 @@
                 var warna = $('#warna').val()
                 var jenis = $('#jenis').val()
               $.ajax({
-                      url:'https://app-125se-backend.herokuapp.com/customer/ukuran',
+                      url:'https://cb125-se.osc-fr1.scalingo.io/customer/ukuran',
                       type: 'GET',
                       dataType: 'json',
                       headers: {
@@ -314,7 +314,7 @@
       }).then(isConfirmed => { 
         if(isConfirmed) {
             $.ajax({
-                url: 'https://app-125se-backend.herokuapp.com/baju/'+id,
+                url: 'https://cb125-se.osc-fr1.scalingo.io/baju/'+id,
                     type: 'DELETE',
                       dataType: 'json',
                       headers: {
