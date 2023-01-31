@@ -426,9 +426,12 @@
                             data += '</a> <a href="#" class="delete" data="' + item.id + '" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
                             //  data+='</a> <a href="#detailModal" data-target="#detailModal" class="detail" data="'+item.id+'" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Detail">&#xe417</i></a></td>';
                             data += '</tr>';
+                            console.log(item);
                         });
 
-                        $('#tableBody').html(data);
+                        $('#datatablesSimple').append(data);
+                        console.log(data);
+                        
 
                     } else {
                         alert("Data tidak ada");
@@ -520,14 +523,14 @@
         totalBajuHijauTerjual();
         function totalBajuHijauTerjual() {
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/search/hijau',
+                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/search/biru',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
                     "content-type": "application/json",
                     Authorization: "Bearer " + localStorage.getItem("bearer")
                 },
-                data: 'hijau=Hijau',
+                data: 'biru=Biru',
                 success: function (result) {
                     $('#hijau').html('<div class="row no-gutters align-items-center"><div class="col mr-2"><div class="text-xs font-weight-bold text-primary text-uppercase mb-1">TOTAL KAOS BIRU</div><div class="h5 mb-0 font-weight-bold text-gray-800">' + result + ' Pcs</div></div><div class="col-auto"><i class="fas fa-tshirt fa-2x text-gray-300"></i></div></div>')
 
@@ -670,7 +673,7 @@
                             data += '</tr>';
                         });
 
-                        $('#tableBody').html(data);
+                        $('#datatablesSimple').html(data);
 
                     } else {
                         // alert("nama tidak ada");
@@ -717,7 +720,7 @@
                             data += '</tr>';
                         });
 
-                        $('#tableBody').html(data);
+                        $('#datatablesSimple').html(data);
 
                     } else {
                         // alert("nama tidak ada");
@@ -1075,7 +1078,7 @@
                                         <i class="far fa-file-pdf"></i> Export Pdf
                                     </button>
 
-                                    <button type="button" class="btn btn-sm btn-info" id="btnClear"
+                                    <button type="button" class="btn btn-sm btn-info" id="btnClear" disabled
                                         onclick="getDataProduct()">
                                         <i class="la la-remove"></i> Reset
                                     </button>
@@ -1101,7 +1104,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tableBody" class=""></tbody>
+                                <tbody id="table"></tbody>
                             </table>
                         </div>
                     </div>
