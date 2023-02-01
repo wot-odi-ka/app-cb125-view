@@ -52,7 +52,6 @@
             alert('Jenis Baju tidak boleh kosong');
             return false;
         }
-                console.log(product);
                 $.ajax({
                     url:'https://cb125-se.osc-fr1.scalingo.io/baju/add',
                     type:'POST',
@@ -65,9 +64,8 @@
                             Authorization: "Bearer " + localStorage.getItem("bearer")
                           },
                     success:function(data){
-                        console.log(data);
-                        alert("product created successfully", "success");
-                        window.location.href="../../dashboard.html";
+                    alert("product created successfully", "success");
+                        // window.location.href="../../dashboard.html";
                    
                     },
                 }) 
