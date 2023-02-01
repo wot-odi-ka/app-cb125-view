@@ -585,18 +585,13 @@
                         success: function (result) {
                             // var oTable = $('#datatablesSimple').DataTable();
                             swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                            $('tableBody').detach();
+                            //$('tableBody').detach();
                             // $('#merah').detach();
                             // $('#putih').detach();
                             // $('#hijau').detach();
                             // $('#hitam').detach();
                             // $('#totalBaju').detach();
-                            getDataProduct();
-                            totalBajuHijauTerjual();
-                            totalBajuHitamTerjual();
-                            totalBajuPutihTerjual();
-                            totalBajuTerjual();
-                            totalPendapatan();
+                            window.location.href="../../dashboard.html";
                         }
                     });
 
