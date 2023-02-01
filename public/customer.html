@@ -95,14 +95,14 @@
                     },
                      success: function(result){
                         let del= 0;
-                        let times= 4000;
+                        let times= 1000;
                         while(times>0){
                             setTimeout(function(){ swal("Insert!", 'Save Data Success', "success",{
                             buttons: false,
                             timer: 2000,
                             }); }, del);
                             del = del + 2000;
-                            setTimeout(function(){ window.location.href="../../dashboard.html"; }, del);
+                            setTimeout(function(){ window.location.href="../../customer.html"; }, del);
                             times= times-1;
                         }
                 },
