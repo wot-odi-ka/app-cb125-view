@@ -399,7 +399,7 @@
         getDataProduct();
         function getDataProduct() {
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/getAll',
+                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/getAll',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -448,7 +448,7 @@
 
         function totalBajuTerjual() {
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/search/total',
+                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/total',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -465,7 +465,7 @@
 
         //function totalBajuHitamTerjual(){ 
         //   $.ajax({
-        //           url:'https://cb125-se.osc-fr1.scalingo.io/customer/search/hitam',
+        //           url:'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/hitam',
         //           type: 'GET',
         //           dataType: 'json',
         //           headers: {
@@ -484,7 +484,7 @@
 
         function totalBajuHitamTerjual() {
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/search/hitam',
+                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/hitam',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -504,7 +504,7 @@
 
         function totalBajuPutihTerjual() {
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/search/putih',
+                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/putih',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -523,7 +523,7 @@
         totalBajuHijauTerjual();
         function totalBajuHijauTerjual() {
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/search/biru',
+                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/biru',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -541,7 +541,7 @@
         totalPendapatan();
         function totalPendapatan() {
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/search/totalPendapatan',
+                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/totalPendapatan',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -573,7 +573,7 @@
             }).then(isConfirmed => {
                 if (isConfirmed) {
                     $.ajax({
-                        url: 'https://cb125-se.osc-fr1.scalingo.io/customer/delete/' + id,
+                        url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/delete/' + id,
                         type: 'DELETE',
                         dataType: 'json',
                         headers: {
@@ -605,7 +605,7 @@
             logout.userId = userId;
 
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/api/auth/logout',
+                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/api/auth/logout',
                 type: 'POST',
                 dataType: 'json',
                 headers: {
@@ -640,7 +640,7 @@
             var nama = $('#nama').val()
 
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/search/nama',
+                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/nama',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -686,7 +686,7 @@
             var warna = $('#warna').val()
 
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/search/warna',
+                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/warna',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -739,7 +739,7 @@
         $(document).on('click', '.detail', function () {
             let id = $(this).attr('data');
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/search/' + id,
+                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/' + id,
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -775,7 +775,7 @@
         $(document).on('click', '.edit', function () {
             let id = $(this).attr('data');
             $.ajax({
-                url: 'https://cb125-se.osc-fr1.scalingo.io/customer/search/' + id,
+                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/' + id,
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -865,7 +865,7 @@
                 }
 
                 $.ajax({
-                    url: 'https://cb125-se.osc-fr1.scalingo.io/customer/update',
+                    url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/update',
                     type: 'POST',
                     dataType: 'json',
                     headers: {
