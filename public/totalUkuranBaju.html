@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Total Ukuran Baju</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:#0f172a;
+      --card:#111827;
+      --muted:#9ca3af;
+      --accent:#06b6d4;
+    }
+    body {
+      margin:0;
+      font-family: Inter, system-ui, sans-serif;
+      background:linear-gradient(180deg,#071133 0%, #0b1222 100%);
+      color:#e6eef8;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:28px;
+    }
+    .container {
+      width:100%;
+      max-width:1000px;
+    }
+    .topbar {
+      background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+      border-radius:12px;
+      box-shadow:0 8px 30px rgba(2,6,23,0.6);
+      padding:12px 16px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:space-between;
+    }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .brand .logo {
+      width:42px;height:42px;
+      border-radius:8px;
+      background:linear-gradient(135deg,var(--accent),#3b82f6);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:#042022;
+    }
+    .brand .title {font-size:16px;font-weight:600;}
+    .menu {width:100%;margin-top:16px;}
+    .size-card {
+      background:var(--card);
+      border-radius:10px;
+      margin-bottom:10px;
+      padding:12px 16px;
+      border:1px solid rgba(255,255,255,0.05);
+      cursor:pointer;
+      transition:all .2s ease;
+    }
+    .size-card:hover {
+      transform:translateY(-3px);
+      box-shadow:0 6px 15px rgba(2,6,23,0.6);
+    }
+    .size-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .size-label {
+      font-weight:700;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .arrow {
+      transition:transform .2s ease;
+    }
+    .size-card.open .arrow {
+      transform:rotate(90deg);
+    }
+    .size-count {
+      background:rgba(255,255,255,0.06);
+      padding:4px 10px;
+      border-radius:999px;
+      font-weight:700;
+    }
+    .details {
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .3s ease;
+      margin-top:0;
+    }
+    .size-card.open .details {
+      max-height:200px;
+      margin-top:8px;
+    }
+    .detail-row {
+      display:flex;
+      justify-content:space-between;
+      padding:6px 8px;
+      border-radius:6px;
+      background:rgba(255,255,255,0.03);
+      margin-bottom:4px;
+    }
+    .muted {color:var(--muted);font-size:13px;}
+    .btn {
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+      padding:8px 12px;
+      border-radius:8px;
+      cursor:pointer;
+      color:#e6eef8;
+      transition:all .2s;
+    }
+    .btn:hover {background:rgba(255,255,255,0.05);}
+    .right-buttons {
+      display:flex;
+      gap:8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="topbar">
+      <div class="brand">
+        <div class="logo">B</div>
+        <div>
+          <div class="title">Inventory Baju</div>
+          <div class="muted" style="font-size:12px">Total per ukuran & jenis</div>
+        </div>
+      </div>
+
+      <div class="right-buttons">
+        <button class="btn" id="backBtn">← Dashboard</button>
+        <button class="btn" id="refreshBtn">Refresh</button>
+        <button class="btn" id="exportPdfBtn">Export PDF</button>
+      </div>
+    </nav>
+
+    <div class="menu" id="sizeMenu"></div>
+  </div>
+
+  <script>
+    const API_URL = "https://app-125se-backend-production.up.railway.app/customer/get/total/size";
+    const SIZES = ["S","M","L","XL","XXL","XXXL","XXXXL","XXXXXL"];
+    let latestData = [];
+
+    function getToken() {
+      return localStorage.getItem("bearer");
+    }
+
+    async function fetchData() {
+      try {
+        const token = getToken();
+        if (!token) {
+          alert("Token belum diset. Gunakan localStorage.setItem('bearer', 'tokenmu')");
+          return;
+        }
+
+        const res = await fetch(API_URL, {
+          method: "GET",
+          headers: {
+            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+            Authorization: "Bearer " + token
+          }
+        });
+
+        if (!res.ok) {
+          if (res.status === 401) throw new Error("Unauthorized: Token tidak valid atau kadaluarsa.");
+          throw new Error("HTTP " + res.status);
+        }
+
+        const data = await res.json();
+        latestData = data;
+        renderMenu(parseResponse(data));
+      } catch (e) {
+        console.error("Gagal fetch data:", e);
+        alert("Error: " + e.message);
+      }
+    }
+
+    function parseResponse(data) {
+      const map = {};
+      data.forEach(item => {
+        const size = item.ukuran_baju;
+        const jenis = item.jenis_baju;
+        const jumlah = Number(item.jumlah_baju);
+        if (!map[size]) map[size] = {};
+        map[size][jenis] = (map[size][jenis] || 0) + jumlah;
+      });
+      SIZES.forEach(s => { if (!map[s]) map[s] = {}; });
+      return map;
+    }
+
+    function computeTotals(map) {
+      const totals = {};
+      for (const size of SIZES) {
+        const variants = map[size] || {};
+        let sum = 0;
+        for (const v in variants) sum += variants[v];
+        totals[size] = sum;
+      }
+      return totals;
+    }
+
+    function renderMenu(dataMap) {
+      const menu = document.getElementById("sizeMenu");
+      menu.innerHTML = "";
+      const totals = computeTotals(dataMap);
+
+      SIZES.forEach(size => {
+        const card = document.createElement("div");
+        card.className = "size-card";
+        card.setAttribute("data-size", size);
+
+        const header = document.createElement("div");
+        header.className = "size-header";
+
+        const label = document.createElement("div");
+        label.className = "size-label";
+        label.innerHTML = `<span class="arrow">▶</span> ${size}`;
+
+        const count = document.createElement("div");
+        count.className = "size-count";
+        count.textContent = totals[size] || 0;
+
+        header.appendChild(label);
+        header.appendChild(count);
+
+        const details = document.createElement("div");
+        details.className = "details";
+
+        const variants = dataMap[size];
+        if (Object.keys(variants).length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "muted";
+          empty.textContent = "Tidak ada data";
+          details.appendChild(empty);
+        } else {
+          for (const v in variants) {
+            const row = document.createElement("div");
+            row.className = "detail-row";
+            row.innerHTML = `<div>${v}</div><div>${variants[v]}</div>`;
+            details.appendChild(row);
+          }
+        }
+
+        card.appendChild(header);
+        card.appendChild(details);
+
+        card.addEventListener("click", () => {
+          const open = card.classList.toggle("open");
+          if (open) {
+            document.querySelectorAll(".size-card.open").forEach(el => {
+              if (el !== card) el.classList.remove("open");
+            });
+          }
+        });
+
+        menu.appendChild(card);
+      });
+    }
+
+    async function exportToPDF() {
+      if (!latestData.length) {
+        alert("Data kosong! Klik Refresh dulu untuk mengambil data.");
+        return;
+      }
+
+      const confirmExport = confirm("Apakah Anda yakin ingin mengekspor data ke PDF?");
+      if (!confirmExport) return;
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(14);
+      doc.text("Laporan Total Ukuran Baju", 14, 15);
+      doc.setFontSize(10);
+      doc.text("Generated: " + new Date().toLocaleString(), 14, 22);
+
+      let y = 35;
+      doc.setFontSize(11);
+      doc.text("Ukuran", 14, 30);
+      doc.text("Jenis", 60, 30);
+      doc.text("Jumlah", 120, 30);
+      doc.line(10, 32, 200, 32);
+
+      latestData.forEach((row) => {
+        doc.text(row.ukuran_baju || "-", 14, y);
+        doc.text(row.jenis_baju || "-", 60, y);
+        doc.text(String(row.jumlah_baju || 0), 120, y);
+        y += 7;
+        if (y > 280) { 
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("Total_Ukuran_Baju.pdf");
+      alert("PDF berhasil diunduh ✅");
+    }
+
+    document.getElementById("refreshBtn").addEventListener("click", fetchData);
+    document.getElementById("exportPdfBtn").addEventListener("click", exportToPDF);
+    document.getElementById("backBtn").addEventListener("click", () => {
+      window.location.href = "dashboard.html";
+    });
+
+    fetchData();
+  </script>
+</body>
+</html>

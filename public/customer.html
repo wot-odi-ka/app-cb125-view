@@ -33,89 +33,94 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" language="javascript">
-        $(document).on('click', '.save', function () {
-            var nama = $('#nama');
-            var jumlahBaju = $('#jumlahBaju');
-            var noHp = $('#noHp');
-            // var gender = $('#gender');
-            var alamat = $('#alamat');
-            var pendek = $('#pendek');
-            var panjang = $('#panjang');
-            console.log(nama);
-            var product = {};
-            product.nama = nama.val();
-            product.jumlahBaju = jumlahBaju.val();
-            product.noHp = noHp.val();
-            product.username = localStorage.getItem("username");
-            product.alamat = alamat.val();
-            if (pendek.val() == '') {
-                product.id_Databaju = panjang.val();
-            }
-            if (panjang.val() == '') {
-                product.id_Databaju = pendek.val();
-            }
+$(document).ready(function () {
+    // 🔁 Disable otomatis antara select Pendek & Panjang
+    $('#pendek').on('change', function () {
+        if ($(this).val() !== '') {
+            $('#panjang').prop('disabled', true);
+        } else {
+            $('#panjang').prop('disabled', false);
+        }
+    });
 
-            if (product.nama == '') {
-                swal("Data!", 'Nama tidak boleh kosong', "warning", {
-                    buttons: false,
-                    timer: 2000,
-                });
-                return false;
-            }
+    $('#panjang').on('change', function () {
+        if ($(this).val() !== '') {
+            $('#pendek').prop('disabled', true);
+        } else {
+            $('#pendek').prop('disabled', false);
+        }
+    });
 
-            if (product.noHp == '') {
-                swal("Data!", 'NoHp tidak boleh kosong', "warning", {
-                    buttons: false,
-                    timer: 2000,
-                });
-                return false;
-            }
-            if (product.jumlahBaju == '') {
-                swal("Data!", 'Jumlah Baju tidak boleh kosong', "warning", {
-                    buttons: false,
-                    timer: 2000,
-                });
-                return false;
-            }
-            if (product.alamat == '') {
-                swal("Data!", 'alamat tidak boleh kosong', "warning", {
-                    buttons: false,
-                    timer: 2000,
-                });
-                return false;
-            }
-            $.ajax({
-                url: 'https://app-125se-backend-production.up.railway.app/customer/add',
-                type: 'POST',
-                dataType: 'json',
-                data: JSON.stringify(product),
-                contentType: "application/json; charset=utf-8",
-                headers: {
-                    "content-type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("bearer")
-                },
-                success: function (result) {
-                    let del = 0;
-                    let times = 1000;
-                    while (times > 0) {
+    // 💾 Event Save
+    $(document).on('click', '.save', function () {
+        var nama = $('#nama');
+        var jumlahBaju = $('#jumlahBaju');
+        var noHp = $('#noHp');
+        var alamat = $('#alamat');
+        var pendek = $('#pendek');
+        var panjang = $('#panjang');
+
+        var product = {
+            nama: nama.val(),
+            jumlahBaju: jumlahBaju.val(),
+            noHp: noHp.val(),
+            username: localStorage.getItem("username"),
+            alamat: alamat.val()
+        };
+
+        // Validasi input
+        if (pendek.val() === '' && panjang.val() === '') {
+            swal("Data!", 'Panjang atau Pendek harus dipilih salah satu!', "warning");
+            return;
+        }
+        if (pendek.val() !== '') product.id_Databaju = pendek.val();
+        if (panjang.val() !== '') product.id_Databaju = panjang.val();
+
+        if (product.nama === '' || product.noHp === '' || product.jumlahBaju === '' || product.alamat === '') {
+            swal("Data Tidak Lengkap!", "Semua field wajib diisi!", "warning");
+            return;
+        }
+
+        // 🔔 Konfirmasi sebelum simpan
+        swal({
+            title: "Yakin ingin menyimpan data?",
+            text: "Pastikan semua data sudah benar.",
+            icon: "warning",
+            buttons: ["Batal", "Ya, Simpan!"],
+            dangerMode: true,
+        }).then((willSave) => {
+            if (willSave) {
+                $.ajax({
+                    url: 'https://app-125se-backend-production.up.railway.app/customer/add',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: JSON.stringify(product),
+                    contentType: "application/json; charset=utf-8",
+                    headers: {
+                        "content-type": "application/json",
+                        Authorization: "Bearer " + localStorage.getItem("bearer")
+                    },
+                    success: function (result) {
+                        swal("Berhasil!", "Data berhasil disimpan!", "success", {
+                            buttons: false,
+                            timer: 2000,
+                        });
                         setTimeout(function () {
-                            swal("Insert!", 'Save Data Success', "success", {
-                                buttons: false,
-                                timer: 2000,
-                            });
-                        }, del);
-                        del = del + 2000;
-                        setTimeout(function () { window.location.href = "../../customer.html"; }, del);
-                        times = times - 1;
+                            window.location.href = "../../customer.html";
+                        }, 2000);
+                    },
+                    error: function (er) {
+                        swal("Gagal!", "Pastikan salah satu ukuran (Panjang/Pendek) diisi!", "error");
                     }
-                },
-
-                error: function (er) {
-                    swal("Salah!", 'Panjang Dan Pendek Harus diisi Salah satu', "error");
-                }
-            })
+                });
+            } else {
+                swal("Batal!", "Data tidak disimpan.", "info");
+            }
         });
-    </script>
+    });
+});
+</script>
+
 </head>
 
 <body>
