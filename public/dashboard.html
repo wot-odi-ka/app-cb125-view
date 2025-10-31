@@ -37,8 +37,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    
-    
+
+
 
     <style>
         body {
@@ -365,25 +365,25 @@
                                 cellWidth: 50,
                             },
                             2: {
-                                cellWidth:60,
+                                cellWidth: 60,
                             },
                             3: {
-                                cellWidth:60,
+                                cellWidth: 60,
                             },
                             4: {
-                                cellWidth:50,
+                                cellWidth: 50,
                             },
                             5: {
-                                cellWidth:50,
+                                cellWidth: 50,
                             },
                             6: {
-                                cellWidth:50,
+                                cellWidth: 50,
                             },
                             7: {
-                                cellWidth:100,
+                                cellWidth: 100,
                             },
                             8: {
-                                cellWidth:1,
+                                cellWidth: 1,
                             },
                         },
                         styles: {
@@ -399,7 +399,7 @@
         getDataProduct();
         function getDataProduct() {
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/getAll',
+                url: 'https://app-125se-backend-production.up.railway.app/customer/getAll',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -431,7 +431,7 @@
 
                         $('#datatablesSimple').append(data);
                         console.log(data);
-                        
+
 
                     } else {
                         alert("Data tidak ada");
@@ -448,7 +448,7 @@
 
         function totalBajuTerjual() {
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/total',
+                url: 'https://app-125se-backend-production.up.railway.app/customer/search/total',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -465,7 +465,7 @@
 
         //function totalBajuHitamTerjual(){ 
         //   $.ajax({
-        //           url:'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/hitam',
+        //           url:'https://app-125se-backend-production.up.railway.app/customer/search/hitam',
         //           type: 'GET',
         //           dataType: 'json',
         //           headers: {
@@ -484,7 +484,7 @@
 
         function totalBajuHitamTerjual() {
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/hitam',
+                url: 'https://app-125se-backend-production.up.railway.app/customer/search/hitam',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -504,7 +504,7 @@
 
         function totalBajuPutihTerjual() {
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/putih',
+                url: 'https://app-125se-backend-production.up.railway.app/customer/search/putih',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -523,7 +523,7 @@
         totalBajuHijauTerjual();
         function totalBajuHijauTerjual() {
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/biru',
+                url: 'https://app-125se-backend-production.up.railway.app/customer/search/biru',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -541,7 +541,7 @@
         totalPendapatan();
         function totalPendapatan() {
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/totalPendapatan',
+                url: 'https://app-125se-backend-production.up.railway.app/customer/search/totalPendapatan',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -573,7 +573,7 @@
             }).then(isConfirmed => {
                 if (isConfirmed) {
                     $.ajax({
-                        url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/delete/' + id,
+                        url: 'https://app-125se-backend-production.up.railway.app/customer/delete/' + id,
                         type: 'DELETE',
                         dataType: 'json',
                         headers: {
@@ -591,7 +591,7 @@
                             // $('#hijau').detach();
                             // $('#hitam').detach();
                             // $('#totalBaju').detach();
-                            window.location.href="../../dashboard.html";
+                            window.location.href = "../../dashboard.html";
                         }
                     });
 
@@ -605,7 +605,7 @@
             logout.userId = userId;
 
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/api/auth/logout',
+                url: 'https://app-125se-backend-production.up.railway.app/api/auth/logout',
                 type: 'POST',
                 dataType: 'json',
                 headers: {
@@ -640,7 +640,7 @@
             var nama = $('#nama').val()
 
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/nama',
+                url: 'https://app-125se-backend-production.up.railway.app/customer/search/nama',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -686,7 +686,7 @@
             var warna = $('#warna').val()
 
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/warna',
+                url: 'https://app-125se-backend-production.up.railway.app/customer/search/warna',
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -739,7 +739,7 @@
         $(document).on('click', '.detail', function () {
             let id = $(this).attr('data');
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/' + id,
+                url: 'https://app-125se-backend-production.up.railway.app/customer/search/' + id,
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -775,7 +775,7 @@
         $(document).on('click', '.edit', function () {
             let id = $(this).attr('data');
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/search/' + id,
+                url: 'https://app-125se-backend-production.up.railway.app/customer/search/' + id,
                 type: 'GET',
                 dataType: 'json',
                 headers: {
@@ -865,7 +865,7 @@
                 }
 
                 $.ajax({
-                    url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/update',
+                    url: 'https://app-125se-backend-production.up.railway.app/customer/update',
                     type: 'POST',
                     dataType: 'json',
                     headers: {
@@ -978,27 +978,27 @@
                         </div>
                         <div class="sb-sidenav-menu-heading">Addons</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                        data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Data Tables
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="tableBaju.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables Data Baju
-                            </a>
-                            <a class="nav-link" href="tableUkuranBaju.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables Ukuran Baju
-                            </a>
-                           
-                        </nav>
-                    </div>
-                        
-                        
+                            data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Data Tables
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="tableBaju.html">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                    Tables Data Baju
+                                </a>
+                                <a class="nav-link" href="tableUkuranBaju.html">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                    Tables Ukuran Baju
+                                </a>
+
+                            </nav>
+                        </div>
+
+
                     </div>
                 </div>
             </nav>
@@ -1298,14 +1298,14 @@
                                     <option value="38">XXXXL-Putih-Panjang</option>
                                     <option value="39">XXXXXL-Putih-Panjang</option>
                                     <option>--------------------------------</option> -->
-                                <option value="1">S-biru-Panjang</option>
-                                <option value="2">M-biru-Panjang</option>
-                                <option value="3">L-biru-Panjang</option>
-                                <option value="4">XL-biru-Panjang</option>
-                                <option value="5">XXL-biru-Panjang</option>
-                                <option value="6">XXXL-biru-Panjang</option>
-                                <option value="7">XXXXL-biru-Panjang</option>
-                                <option value="16">XXXXXL-biru-Panjang</option>
+                                    <option value="1">S-biru-Panjang</option>
+                                    <option value="2">M-biru-Panjang</option>
+                                    <option value="3">L-biru-Panjang</option>
+                                    <option value="4">XL-biru-Panjang</option>
+                                    <option value="5">XXL-biru-Panjang</option>
+                                    <option value="6">XXXL-biru-Panjang</option>
+                                    <option value="7">XXXXL-biru-Panjang</option>
+                                    <option value="16">XXXXXL-biru-Panjang</option>
                                 </select>
                             </div>
                             <div class="form-group">

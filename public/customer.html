@@ -8,31 +8,32 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Customer - SB Admin</title>
-       <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
         <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script> -->
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> -->
-        <link href="css/styles.css" rel="stylesheet" />
-        <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> -->
+    <link href="css/styles.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
         <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script> -->
-        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src=" https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> -->
-        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
-        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <script type="text/javascript"  language="javascript">
-        $(document).on('click','.save',function(){
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" language="javascript">
+        $(document).on('click', '.save', function () {
             var nama = $('#nama');
             var jumlahBaju = $('#jumlahBaju');
             var noHp = $('#noHp');
@@ -47,44 +48,44 @@
             product.noHp = noHp.val();
             product.username = localStorage.getItem("username");
             product.alamat = alamat.val();
-            if(pendek.val() == ''){
+            if (pendek.val() == '') {
                 product.id_Databaju = panjang.val();
             }
-            if(panjang.val() == ''){
+            if (panjang.val() == '') {
                 product.id_Databaju = pendek.val();
             }
-            
+
             if (product.nama == '') {
-                swal("Data!", 'Nama tidak boleh kosong', "warning",{
-                 buttons: false,
+                swal("Data!", 'Nama tidak boleh kosong', "warning", {
+                    buttons: false,
                     timer: 2000,
                 });
                 return false;
             }
 
             if (product.noHp == '') {
-                swal("Data!", 'NoHp tidak boleh kosong', "warning",{
-                buttons: false,
-                 timer: 2000,
+                swal("Data!", 'NoHp tidak boleh kosong', "warning", {
+                    buttons: false,
+                    timer: 2000,
                 });
                 return false;
             }
             if (product.jumlahBaju == '') {
-                swal("Data!", 'Jumlah Baju tidak boleh kosong', "warning",{
-                buttons: false,
-                timer: 2000,
+                swal("Data!", 'Jumlah Baju tidak boleh kosong', "warning", {
+                    buttons: false,
+                    timer: 2000,
                 });
                 return false;
             }
-            if (product.alamat == '') {                
-                swal("Data!", 'alamat tidak boleh kosong', "warning",{
-             buttons: false,
-             timer: 2000,
-            });
+            if (product.alamat == '') {
+                swal("Data!", 'alamat tidak boleh kosong', "warning", {
+                    buttons: false,
+                    timer: 2000,
+                });
                 return false;
             }
             $.ajax({
-                url: 'https://z3kz3s3k-8022.asse.devtunnels.ms/customer/add',
+                url: 'https://app-125se-backend-production.up.railway.app/customer/add',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify(product),
@@ -92,22 +93,24 @@
                 headers: {
                     "content-type": "application/json",
                     Authorization: "Bearer " + localStorage.getItem("bearer")
-                    },
-                     success: function(result){
-                        let del= 0;
-                        let times= 1000;
-                        while(times>0){
-                            setTimeout(function(){ swal("Insert!", 'Save Data Success', "success",{
-                            buttons: false,
-                            timer: 2000,
-                            }); }, del);
-                            del = del + 2000;
-                            setTimeout(function(){ window.location.href="../../customer.html"; }, del);
-                            times= times-1;
-                        }
                 },
-               
-                error: function(er) {
+                success: function (result) {
+                    let del = 0;
+                    let times = 1000;
+                    while (times > 0) {
+                        setTimeout(function () {
+                            swal("Insert!", 'Save Data Success', "success", {
+                                buttons: false,
+                                timer: 2000,
+                            });
+                        }, del);
+                        del = del + 2000;
+                        setTimeout(function () { window.location.href = "../../customer.html"; }, del);
+                        times = times - 1;
+                    }
+                },
+
+                error: function (er) {
                     swal("Salah!", 'Panjang Dan Pendek Harus diisi Salah satu', "error");
                 }
             })
@@ -234,12 +237,12 @@
                                             <option value="13">XXXL-biru-Pendek</option>
                                             <option value="14">XXXXL-biru-Pendek</option>
                                             <option value="15">XXXXXL-biru-Pendek</option>
-                                            
+
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword4">Panjang</label>
-                                        <select class="form-control" id="panjang" >
+                                        <select class="form-control" id="panjang">
                                             <option></option>
                                             <!-- <option value="16">S-Hitam-Panjang</option>
                                             <option value="17">M-Hitam-Panjang</option>
@@ -293,10 +296,10 @@
                             </div>
                         </div>
                     </div>
-                   
+
                 </div>
             </main>
-          
+
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
